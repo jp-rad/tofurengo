@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Convert Console</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/fonts.css">
+
+    <!-- JS: Original frontend controller script -->
+    <script type="module">
+        import { initConsole, doConvert, updateVariantFont } from "/static/js/frontend.js";
+
+        window.doConvert = doConvert;
+        window.updateVariantFont = updateVariantFont;
+        window.onload = initConsole;
+    </script>
+
+    <!-- JS: Client-side rendering script using Tofurengo bundle -->
+    <script type="module">
+        import { render } from "/vendor/tofurengo/tofurengo.min.js";
+
+        // Client-side render handler for normalized text changes
+        window.onNormalizedTextChange = () => {
+            const normalizedText = document.getElementById("normalized_text").value;
+
+            // Render base character prioritized output
+            document.getElementById("base_text").value = render(normalizedText, true);
+
+            // Render variant/IVS prioritized output
+            document.getElementById("variant_text").value = render(normalizedText, false);
+        };
+    </script>
+</head>
+
+<body>
+
+<h1>Convert Console</h1>
+
+<!-- Glyph set selector + Font name -->
+<div class="section inline-row">
+    <label for="glyph_set">Glyph Set:</label>
+    <select id="glyph_set" onchange="updateVariantFont()">
+        <option value="mj-plus">mj-plus</option>
+        <option value="mj-plusx">mj-plusx</option>
+        <option value="mj">mj</option>
+        <option value="mj-onka">mj-onka</option>
+    </select>
+
+    <label for="font_name">Font:</label>
+    <span id="font_name"></span>
+</div>
+
+<!-- Single-line input -->
+<div class="section">
+    <label for="text">Input Text:</label><br>
+    <input id="text" type="text"
+           value="奈良県{MJ022335}城市{{MJ022335}と仮名の「{MJ090001}」">
+</div>
+
+<!-- Convert button + docs link -->
+<div class="section button-row">
+    <button onclick="doConvert()">Convert</button>
+    <a id="docs_link" href="/docs" target="_blank">API Docs (Swagger UI)</a>
+</div>
+
+<hr>
+
+<!-- JSON result -->
+<div class="section">
+    <h2>Result JSON</h2>
+    <textarea id="json_result" rows="20" readonly></textarea>
+</div>
+
+<hr>
+
+<!-- Normalized text output -->
+<div class="section">
+    <h2>Normalized Text</h2>
+    <input id="normalized_text" type="text" oninput="onNormalizedTextChange()">
+</div>
+
+<!-- Client-side rendered text (Base) -->
+<div class="section">
+    <h2>JS Base Rendered Text</h2>
+    <input id="base_text" type="text" readonly>
+</div>
+
+<!-- Client-side rendered text (Variant) -->
+<div class="section">
+    <h2>JS Variant Rendered Text</h2>
+    <input id="variant_text" type="text" readonly>
+</div>
+
+</body>
+</html>

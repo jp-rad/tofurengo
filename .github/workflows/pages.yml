@@ -1,0 +1,104 @@
+name: Build PEP503 Index and Deploy Pages
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+jobs:
+  build-pages:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install tools
+        run: |
+          pip install --upgrade pip
+          pip install build hatchling
+
+      # ---------------------------------------------------------
+      # Build all packages
+      # ---------------------------------------------------------
+      - name: Build tofurengo
+        run: python -m build
+        working-directory: tofurengo
+
+      - name: Build tofurengo-data-mj-v6_02_201
+        run: python -m build
+        working-directory: glyph/mj-v6_02_201
+
+      - name: Build tofurengo-data-mj-v6_02_201_onka
+        run: python -m build
+        working-directory: glyph/mj-v6_02_201_onka
+
+      - name: Build tofurengo-data-mj_plus-v4_10
+        run: python -m build
+        working-directory: glyph/mj_plus-v4_10
+
+      - name: Build tofurengo-data-mj_plusx-v1_20
+        run: python -m build
+        working-directory: glyph/mj_plusx-v1_20
+
+      # ---------------------------------------------------------
+      # Copy pre-generated pdoc (committed in repo)
+      # ---------------------------------------------------------
+      - name: Copy tofurengo docs to docs
+        run: |
+          mkdir -p docs
+          cp -r tofurengo/docs/tofurengo/* docs
+
+      # ---------------------------------------------------------
+      # Collect wheels
+      # ---------------------------------------------------------
+      - name: Collect wheels
+        run: |
+          mkdir -p docs/wheels
+          cp tofurengo/dist/*.whl docs/wheels/
+          cp glyph/mj-v6_02_201/dist/*.whl docs/wheels/
+          cp glyph/mj-v6_02_201_onka/dist/*.whl docs/wheels/
+          cp glyph/mj_plus-v4_10/dist/*.whl docs/wheels/
+          cp glyph/mj_plusx-v1_20/dist/*.whl docs/wheels/
+
+      # ---------------------------------------------------------
+      # Generate PEP503 index (folder name normalized)
+      # ---------------------------------------------------------
+      - name: Create PEP503 index
+        run: |
+          mkdir -p docs/simple
+
+          for whl in docs/wheels/*.whl; do
+            fname=$(basename "$whl")
+
+            # wheel 名の先頭部分（package 名）を抽出
+            pkg_raw=$(echo "$fname" | cut -d'-' -f1)
+
+            # PEP503 正規化：アンダースコア → ハイフン
+            pkg_norm=$(echo "$pkg_raw" | tr '_' '-')
+
+            mkdir -p docs/simple/$pkg_norm
+
+            {
+              echo '<!DOCTYPE html>'
+              echo '<html>'
+              echo '  <body>'
+              echo "    <a href=\"../../wheels/$fname\">$fname</a>"
+              echo '  </body>'
+              echo '</html>'
+            } > docs/simple/$pkg_norm/index.html
+          done
+
+      # ---------------------------------------------------------
+      # Deploy to GitHub Pages
+      # ---------------------------------------------------------
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs
