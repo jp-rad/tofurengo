@@ -71,7 +71,54 @@ jobs:
         working-directory: glyph/mj_plusx_v1_20
 
       # ---------------------------------------------------------
-      # 2. Extract pdoc3 CSS and Convert Markdown Pages
+      # 2. Collect wheels
+      # ---------------------------------------------------------
+      - name: Collect wheels
+        run: |
+          mkdir -p docs/wheels
+          cp tofurengo/dist/*.whl docs/wheels/
+          cp glyph/mj_v6_02_201/dist/*.whl docs/wheels/
+          cp glyph/mj_v6_02_201_onka/dist/*.whl docs/wheels/
+          cp glyph/mj_plus_v4_10/dist/*.whl docs/wheels/
+          cp glyph/mj_plusx_v1_20/dist/*.whl docs/wheels/
+
+      # ---------------------------------------------------------
+      # 3. Generate PEP503 index (Package names with hyphens)
+      # ---------------------------------------------------------
+      - name: Create PEP503 index
+        run: |
+          mkdir -p docs/simple
+
+          # Initialize root simple index
+          echo '<!DOCTYPE html><html><body>' > docs/simple/index.html
+
+          for whl in docs/wheels/*.whl; do
+            [ -e "$whl" ] || continue
+            fname=$(basename "$whl")
+
+            pkg_raw=$(echo "$fname" | cut -d'-' -f1)
+            pkg_norm=$(echo "$pkg_raw" | tr '_' '-')
+
+            mkdir -p docs/simple/$pkg_norm
+
+            # Package detail index
+            {
+              echo '<!DOCTYPE html>'
+              echo '<html>'
+              echo '  <body>'
+              echo "    <a href=\"../../wheels/$fname\">$fname</a>"
+              echo '  </body>'
+              echo '</html>'
+            } > docs/simple/$pkg_norm/index.html
+
+            # Append to root simple index
+            echo "    <a href=\"$pkg_norm/\">$pkg_norm</a><br/>" >> docs/simple/index.html
+          done
+
+          echo '  </body></html>' >> docs/simple/index.html
+
+      # ---------------------------------------------------------
+      # 4. Extract pdoc3 CSS and Convert Markdown Pages
       # ---------------------------------------------------------
       - name: Create docs directory and Extract pdoc3 CSS
         run: |
@@ -107,15 +154,15 @@ jobs:
             -o docs/index.html \
             --metadata title="Home"
 
-          # ./GLYPH-TAG-SPECS.ja.md -> docs/GLYPH-TAG-SPECS.ja.html
+          # ./GLYPH-TAG-SPECS.ja.md -> docs/specification.ja.html
           pandoc GLYPH-TAG-SPECS.ja.md \
             -s \
             -c pdoc.css \
-            -o docs/GLYPH-TAG-SPECS.ja.html \
-            --metadata title="GLYPH-TAG-SPECS (Japanese)"
+            -o docs/specification.ja.html \
+            --metadata title="Glyph Tag Specification (Japanese)"
 
       # ---------------------------------------------------------
-      # 3. Copy pre-generated pdoc HTML files to docs/api
+      # 5. Copy pre-generated pdoc HTML files to docs/api
       # ---------------------------------------------------------
       - name: Copy tofurengo docs to docs/api
         run: |
@@ -123,49 +170,22 @@ jobs:
           cp -r tofurengo/docs/tofurengo/* docs/api/
 
       # ---------------------------------------------------------
-      # 4. Collect wheels
-      # ---------------------------------------------------------
-      - name: Collect wheels
-        run: |
-          mkdir -p docs/wheels
-          cp tofurengo/dist/*.whl docs/wheels/
-          cp glyph/mj_v6_02_201/dist/*.whl docs/wheels/
-          cp glyph/mj_v6_02_201_onka/dist/*.whl docs/wheels/
-          cp glyph/mj_plus_v4_10/dist/*.whl docs/wheels/
-          cp glyph/mj_plusx_v1_20/dist/*.whl docs/wheels/
-
-      # ---------------------------------------------------------
-      # 5. Generate PEP503 index (Package names with hyphens)
-      # ---------------------------------------------------------
-      - name: Create PEP503 index
-        run: |
-          mkdir -p docs/simple
-
-          for whl in docs/wheels/*.whl; do
-            [ -e "$whl" ] || continue
-            fname=$(basename "$whl")
-
-            # Extract package name part from wheel filename (separated by underscores in whl)
-            pkg_raw=$(echo "$fname" | cut -d'-' -f1)
-
-            # Convert package name to PEP503 normalized form (replace underscores with hyphens)
-            pkg_norm=$(echo "$pkg_raw" | tr '_' '-')
-
-            mkdir -p docs/simple/$pkg_norm
-
-            {
-              echo '<!DOCTYPE html>'
-              echo '<html>'
-              echo '  <body>'
-              echo "    <a href=\"../../wheels/$fname\">$fname</a>"
-              echo '  </body>'
-              echo '</html>'
-            } > docs/simple/$pkg_norm/index.html
-          done
-
-      # ---------------------------------------------------------
       # 6. Deploy to GitHub Pages
       # ---------------------------------------------------------
+      - name: Check GitHub Pages status
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: token $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages")
+
+          if [ "$STATUS_CODE" -ne 200 ]; then
+            echo "[ERROR] GitHub Pages is not enabled. Go to Settings > Pages and set Source to 'GitHub Actions'."
+            exit 1
+          fi
+
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
