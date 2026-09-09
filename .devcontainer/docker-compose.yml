@@ -1,0 +1,43 @@
+version: '2'
+
+services:
+  dev:
+    image: "dev:python3"
+    build:
+      context: "."
+      dockerfile: ./dev/Dockerfile
+      args:
+        # Update 'VARIANT' to pick a Python version: 3, 3.10, 3.11, 3.12
+        # Available image variants: https://github.com/microsoft/vscode-dev-containers/blob/main/containers/python-3/README.md
+        VARIANT: "3"
+    volumes:
+      - ..:/home/vscode/dev/code:cached
+      - ./dev/.vscode:/home/vscode/dev/.vscode:cached
+    depends_on:
+      - lb
+    tty: true
+    command: bash
+  
+  lb:
+    image: nginx:alpine
+    build:
+      context: "."
+      dockerfile: nginx/Dockerfile
+      args:
+        # Number of days the generated certificates remain valid
+        SSL_DAYS: "365"
+        # # Unified subject base used for both Root CA and server certificates
+        # SSL_SUBJECT_BASE: "/C=JP/ST=Origami/L=Layer/O=ValleyMountain/OU=StackGeometry"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:cached
+    ports:
+      - "80:80"
+      - "443:443"
+    # -------------------------------------------------------
+    # Manual certificate regeneration:
+    # Open Docker Desktop → select 'lb' → Terminal → run:
+    #
+    #   sh -c "/usr/local/bin/rebuild-certs.sh"
+    #
+    # -------------------------------------------------------
+

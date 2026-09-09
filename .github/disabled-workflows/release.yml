@@ -1,0 +1,77 @@
+name: Build and Release Wheels
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install tools
+        run: |
+          pip install --upgrade pip
+          pip install build hatchling
+
+      # ---------------------------------------------------------
+      # Build all packages
+      # ---------------------------------------------------------
+      - name: Build tofurengo
+        run: python -m build
+        working-directory: tofurengo
+
+      - name: Build tofurengo-data-mj-v6_02_201
+        run: python -m build
+        working-directory: glyph/mj-v6_02_201
+
+      - name: Build tofurengo-data-mj-v6_02_201_onka
+        run: python -m build
+        working-directory: glyph/mj-v6_02_201_onka
+
+      - name: Build tofurengo-data-mj_plus-v4_10
+        run: python -m build
+        working-directory: glyph/mj_plus-v4_10
+
+      - name: Build tofurengo-data-mj_plusx-v1_20
+        run: python -m build
+        working-directory: glyph/mj_plusx-v1_20
+
+      # ---------------------------------------------------------
+      # Collect wheels
+      # ---------------------------------------------------------
+      - name: Collect wheels
+        run: |
+          mkdir wheels
+          cp tofurengo/dist/*.whl wheels/
+          cp glyph/mj-v6_02_201/dist/*.whl wheels/
+          cp glyph/mj-v6_02_201_onka/dist/*.whl wheels/
+          cp glyph/mj_plus-v4_10/dist/*.whl wheels/
+          cp glyph/mj_plusx-v1_20/dist/*.whl wheels/
+
+      # ---------------------------------------------------------
+      # Create fixed-name "latest" wheel alias for tofurengo
+      # ---------------------------------------------------------
+      - name: Create latest wheel alias
+        run: |
+          latest=$(ls wheels/tofurengo-*.whl | sort -V | tail -n 1)
+          cp "$latest" wheels/tofurengo-latest-py3-none-any.whl
+
+      # ---------------------------------------------------------
+      # Create GitHub Release and upload wheels
+      # ---------------------------------------------------------
+      - name: Upload wheels to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: wheels/*.whl
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
