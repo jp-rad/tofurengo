@@ -63,11 +63,11 @@ jobs:
 
       - name: Build tofurengo-data-mj-plus-v4-10
         run: python -m build
-        working-directory: glyph/mj_plus-v4_10
+        working-directory: glyph/mj_plus_v4_10
 
       - name: Build tofurengo-data-mj-plusx-v1-20
         run: python -m build
-        working-directory: glyph/mj_plusx-v1_20
+        working-directory: glyph/mj_plusx_v1_20
 
       # ---------------------------------------------------------
       # 2. Extract pdoc3 CSS and Convert Markdown Pages
@@ -131,8 +131,8 @@ jobs:
           cp tofurengo/dist/*.whl docs/wheels/
           cp glyph/mj_v6_02_201/dist/*.whl docs/wheels/
           cp glyph/mj_v6_02_201_onka/dist/*.whl docs/wheels/
-          cp glyph/mj_plus-v4_10/dist/*.whl docs/wheels/
-          cp glyph/mj_plusx-v1_20/dist/*.whl docs/wheels/
+          cp glyph/mj_plus_v4_10/dist/*.whl docs/wheels/
+          cp glyph/mj_plusx_v1_20/dist/*.whl docs/wheels/
 
       # ---------------------------------------------------------
       # 5. Generate PEP503 index (Package names with hyphens)
