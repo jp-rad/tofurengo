@@ -79,9 +79,8 @@ jobs:
           python -c "
           import pdoc.cli
 
-          template = pdoc.tpl_lookup.get_template('html.mako')
-          rendered = template.render()
-          css = rendered.split('<style>')[1].split('</style>')[0]
+          template = pdoc.tpl_lookup.get_template('css.mako')
+          css = template.render()
 
           with open('docs/pdoc.css', 'w', encoding='utf-8') as f:
               f.write(css)
