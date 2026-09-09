@@ -89,6 +89,9 @@ jobs:
         run: |
           mkdir -p docs/simple
 
+          # Initialize root simple index
+          echo '<!DOCTYPE html><html><body>' > docs/simple/index.html
+
           for whl in docs/wheels/*.whl; do
             [ -e "$whl" ] || continue
             fname=$(basename "$whl")
@@ -98,6 +101,7 @@ jobs:
 
             mkdir -p docs/simple/$pkg_norm
 
+            # Package detail index
             {
               echo '<!DOCTYPE html>'
               echo '<html>'
@@ -106,7 +110,12 @@ jobs:
               echo '  </body>'
               echo '</html>'
             } > docs/simple/$pkg_norm/index.html
+
+            # Append to root simple index
+            echo "    <a href=\"$pkg_norm/\">$pkg_norm</a><br/>" >> docs/simple/index.html
           done
+
+          echo '  </body></html>' >> docs/simple/index.html
 
       # ---------------------------------------------------------
       # 4. Extract pdoc3 CSS and Convert Markdown Pages
