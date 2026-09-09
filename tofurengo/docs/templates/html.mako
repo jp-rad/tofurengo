@@ -81,9 +81,9 @@
       <dt><a href="${link_prefix}${name}">${name}</a></dt>
       <dd>${desc | glimpse, to_html}</dd>
       </div>
-  % endfor
+      % endfor
   </dl>
-% endif
+  % endif
 </%def>
 
 <%def name="show_column_list(items)">
@@ -315,13 +315,34 @@
     % endif
 
     % if submodules:
-    <li><h3><a href="#header-submodules">Sub-modules</a></h3>
-      <ul>
-      % for m in submodules:
-        <li><code>${link(m)}</code></li>
-      % endfor
-      </ul>
-    </li>
+      <%
+        # Top / Core / Bottom モジュールの分類
+        top_mods = [m for m in submodules if m.name.endswith('aa_readme')]
+        bottom_mods = [m for m in submodules if m.name.endswith('zz_glyph_tag_specs')]
+        core_mods = [m for m in submodules if m not in top_mods and m not in bottom_mods]
+      %>
+
+      % if top_mods:
+        % for m in top_mods:
+          <li><h3><a href="../${m.url()}">readme</a></h3></li>
+        % endfor
+      % endif
+
+      % if core_mods:
+        <li><h3>tofurengo</h3>
+          <ul>
+            % for m in core_mods:
+              <li><code>${link(m)}</code></li>
+            % endfor
+          </ul>
+        </li>
+      % endif
+
+      % if bottom_mods:
+        % for m in bottom_mods:
+          <li><h3><a href="../${m.url()}">GLYPH-TAG-SPECS</a></h3></li>
+        % endfor
+      % endif
     % endif
 
     % if variables:
