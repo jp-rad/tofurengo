@@ -1,0 +1,17 @@
+pip
+build
+pytest
+pytest-cov
+pydantic
+pydantic-settings
+# documentation
+pdoc3
+# tools
+pandas>=2.0
+openpyxl>=3.1
+pyaccess>=0.1.0a4
+# example
+fastapi
+python-multipart
+uvicorn
+httpx

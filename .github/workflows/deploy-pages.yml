@@ -1,0 +1,179 @@
+name: Build PEP503 Index and Deploy Pages
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+  workflow_dispatch:
+    inputs:
+      git_ref:
+        description: "Branch, Tag, or Commit SHA to checkout"
+        required: false
+        default: "main"
+        type: string
+      reason:
+        description: "Reason for manual run"
+        required: false
+        default: "Manual trigger for testing"
+        type: string
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.git_ref || github.ref }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install tools
+        run: |
+          pip install --upgrade pip
+          pip install build hatchling pdoc3 pandoc
+
+      # ---------------------------------------------------------
+      # 1. Build all packages
+      # ---------------------------------------------------------
+      - name: Build tofurengo
+        run: python -m build
+        working-directory: tofurengo
+
+      - name: Build tofurengo-data-mj-v6_02_201
+        run: python -m build
+        working-directory: glyph/mj-v6_02_201
+
+      - name: Build tofurengo-data-mj-v6_02_201_onka
+        run: python -m build
+        working-directory: glyph/mj-v6_02_201_onka
+
+      - name: Build tofurengo-data-mj_plus-v4_10
+        run: python -m build
+        working-directory: glyph/mj_plus-v4_10
+
+      - name: Build tofurengo-data-mj_plusx-v1_20
+        run: python -m build
+        working-directory: glyph/mj_plusx-v1_20
+
+      # ---------------------------------------------------------
+      # 2. Extract pdoc3 CSS and Convert Markdown Pages
+      # ---------------------------------------------------------
+      - name: Create docs directory and Extract pdoc3 CSS
+        run: |
+          mkdir -p docs
+
+          python -c "
+          import pdoc.cli
+
+          template = pdoc.tpl_lookup.get_template('html.mako')
+          rendered = template.render()
+          css = rendered.split('<style>')[1].split('</style>')[0]
+
+          with open('docs/pdoc.css', 'w', encoding='utf-8') as f:
+              f.write(css)
+              f.write('''
+              /* Layout fixes for Pandoc generated markdown */
+              body {
+                  padding: 2em;
+                  max-width: 1200px;
+                  margin: 0 auto;
+              }
+              #content {
+                  max-width: 100% !important;
+              }
+              ''')
+          "
+
+      - name: Convert Markdown files to HTML with pdoc3 style
+        run: |
+          # ./README.md -> docs/index.html
+          pandoc README.md \
+            -s \
+            -c pdoc.css \
+            -o docs/index.html \
+            --metadata title="Home"
+
+          # ./GLYPH-TAG-SPECS.ja.md -> docs/GLYPH-TAG-SPECS.ja.html
+          pandoc GLYPH-TAG-SPECS.ja.md \
+            -s \
+            -c pdoc.css \
+            -o docs/GLYPH-TAG-SPECS.ja.html \
+            --metadata title="GLYPH-TAG-SPECS (Japanese)"
+
+      # ---------------------------------------------------------
+      # 3. Copy pre-generated pdoc HTML files to docs/api
+      # ---------------------------------------------------------
+      - name: Copy tofurengo docs to docs/api
+        run: |
+          mkdir -p docs/api
+          cp -r tofurengo/docs/tofurengo/* docs/api/
+
+      # ---------------------------------------------------------
+      # 4. Collect wheels
+      # ---------------------------------------------------------
+      - name: Collect wheels
+        run: |
+          mkdir -p docs/wheels
+          cp tofurengo/dist/*.whl docs/wheels/
+          cp glyph/mj-v6_02_201/dist/*.whl docs/wheels/
+          cp glyph/mj-v6_02_201_onka/dist/*.whl docs/wheels/
+          cp glyph/mj_plus-v4_10/dist/*.whl docs/wheels/
+          cp glyph/mj_plusx-v1_20/dist/*.whl docs/wheels/
+
+      # ---------------------------------------------------------
+      # 5. Generate PEP503 index (folder name normalized)
+      # ---------------------------------------------------------
+      - name: Create PEP503 index
+        run: |
+          mkdir -p docs/simple
+
+          for whl in docs/wheels/*.whl; do
+            [ -e "$whl" ] || continue
+            fname=$(basename "$whl")
+
+            # Extract package name from wheel filename prefix
+            pkg_raw=$(echo "$fname" | cut -d'-' -f1)
+
+            # PEP503 normalization: replace underscores with hyphens
+            pkg_norm=$(echo "$pkg_raw" | tr '_' '-')
+
+            mkdir -p docs/simple/$pkg_norm
+
+            {
+              echo '<!DOCTYPE html>'
+              echo '<html>'
+              echo '  <body>'
+              echo "    <a href=\"../../wheels/$fname\">$fname</a>"
+              echo '  </body>'
+              echo '</html>'
+            } > docs/simple/$pkg_norm/index.html
+          done
+
+      # ---------------------------------------------------------
+      # 6. Deploy to GitHub Pages
+      # ---------------------------------------------------------
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'docs'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

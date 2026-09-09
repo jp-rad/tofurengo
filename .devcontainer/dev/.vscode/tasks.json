@@ -1,0 +1,225 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "pdoc3 package tofurengo",
+            "type": "shell",
+            "command": "pdoc3",
+            "args": [
+                "tofurengo",
+                "-o",
+                "../docs",
+                "--force",
+                "--html",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/code/tofurengo/src",
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build package tofurengo",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "-m",
+                "build"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/code/tofurengo",
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "install package tofurengo",
+            "type": "shell",
+            "command": "pip3",
+            "args": [
+                "install",
+                "--upgrade",
+                "--no-deps",
+                ".",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/code/tofurengo",
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build package tofurengo-data-mj-v6-02-201",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "-m",
+                "build"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/code/glyph/mj_v6_02_201",
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "install package tofurengo-data-mj-v6-02-201",
+            "type": "shell",
+            "command": "pip3",
+            "args": [
+                "install",
+                "--upgrade",
+                "--no-deps",
+                ".",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/code/glyph/mj_v6_02_201",
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build package tofurengo-data-mj-v6-02-201-onka",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "-m",
+                "build"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/code/glyph/mj_v6_02_201_onka",
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "install package tofurengo-data-mj-v6-02-201-onka",
+            "type": "shell",
+            "command": "pip3",
+            "args": [
+                "install",
+                "--upgrade",
+                "--no-deps",
+                ".",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/code/glyph/mj_v6_02_201_onka",
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build package tofurengo-data-mj-plus-v4-10",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "-m",
+                "build"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/code/glyph/mj_plus_v4_10",
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "install package tofurengo-data-mj-plus-v4-10",
+            "type": "shell",
+            "command": "pip3",
+            "args": [
+                "install",
+                "--upgrade",
+                "--no-deps",
+                ".",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/code/glyph/mj_plus_v4_10",
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build package tofurengo-data-mj-plusx-v1-20",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "-m",
+                "build"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/code/glyph/mj_plusx_v1_20",
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "install package tofurengo-data-mj-plusx-v1-20",
+            "type": "shell",
+            "command": "pip3",
+            "args": [
+                "install",
+                "--upgrade",
+                "--no-deps",
+                ".",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/code/glyph/mj_plusx_v1_20",
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "uninstall packages",
+            "type": "shell",
+            "command": "pip3",
+            "args": [
+                "uninstall",
+                "-y",
+                "tofurengo",
+                "tofurengo-data-mj-v6-02-201",
+                "tofurengo-data-mj-v6-02-201-onka",
+                "tofurengo-data-mj-plus-v4-10",
+                "tofurengo-data-mj-plusx-v1-20",
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "compile tofurengo.data",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "tools/compilers/compiler_glyph.py"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/code",
+                "env": {
+                    "PYTHONPATH": "${workspaceFolder}/code:${workspaceFolder}/code/tofurengo/src"
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build tofurengo-js",
+            "type": "shell",
+            "command": "npm run build",
+            "options": {
+                "cwd": "${workspaceFolder}/code/tofurengo_js",
+            },
+            "problemMatcher": [],
+        },
+        {
+            "label": "rebuild package",
+            "dependsOn": [
+                "compile tofurengo.data",
+                "pdoc3 package tofurengo",
+                "build package tofurengo",
+                "install package tofurengo",
+                "build package tofurengo-data-mj-v6-02-201",
+                "install package tofurengo-data-mj-v6-02-201",
+                "build package tofurengo-data-mj-v6-02-201-onka",
+                "install package tofurengo-data-mj-v6-02-201-onka",
+                "build package tofurengo-data-mj-plus-v4-10",
+                "install package tofurengo-data-mj-plus-v4-10",
+                "build package tofurengo-data-mj-plusx-v1-20",
+                "install package tofurengo-data-mj-plusx-v1-20",
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+    ]
+}
