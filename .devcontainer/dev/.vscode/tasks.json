@@ -13,6 +13,8 @@
                 "../docs",
                 "--force",
                 "--html",
+                "--template-dir",
+                "${workspaceFolder}/code/tofurengo/docs/templates",
             ],
             "options": {
                 "cwd": "${workspaceFolder}/code/tofurengo/src",
