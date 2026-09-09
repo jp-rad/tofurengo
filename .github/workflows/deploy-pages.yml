@@ -53,19 +53,19 @@ jobs:
         run: python -m build
         working-directory: tofurengo
 
-      - name: Build tofurengo-data-mj-v6_02_201
+      - name: Build tofurengo-data-mj-v6-02-201
         run: python -m build
-        working-directory: glyph/mj-v6_02_201
+        working-directory: glyph/mj_v6_02_201
 
-      - name: Build tofurengo-data-mj-v6_02_201_onka
+      - name: Build tofurengo-data-mj-v6-02-201-onka
         run: python -m build
-        working-directory: glyph/mj-v6_02_201_onka
+        working-directory: glyph/mj_v6_02_201_onka
 
-      - name: Build tofurengo-data-mj_plus-v4_10
+      - name: Build tofurengo-data-mj-plus-v4-10
         run: python -m build
         working-directory: glyph/mj_plus-v4_10
 
-      - name: Build tofurengo-data-mj_plusx-v1_20
+      - name: Build tofurengo-data-mj-plusx-v1-20
         run: python -m build
         working-directory: glyph/mj_plusx-v1_20
 
@@ -129,13 +129,13 @@ jobs:
         run: |
           mkdir -p docs/wheels
           cp tofurengo/dist/*.whl docs/wheels/
-          cp glyph/mj-v6_02_201/dist/*.whl docs/wheels/
-          cp glyph/mj-v6_02_201_onka/dist/*.whl docs/wheels/
+          cp glyph/mj_v6_02_201/dist/*.whl docs/wheels/
+          cp glyph/mj_v6_02_201_onka/dist/*.whl docs/wheels/
           cp glyph/mj_plus-v4_10/dist/*.whl docs/wheels/
           cp glyph/mj_plusx-v1_20/dist/*.whl docs/wheels/
 
       # ---------------------------------------------------------
-      # 5. Generate PEP503 index (folder name normalized)
+      # 5. Generate PEP503 index (Package names with hyphens)
       # ---------------------------------------------------------
       - name: Create PEP503 index
         run: |
@@ -145,10 +145,10 @@ jobs:
             [ -e "$whl" ] || continue
             fname=$(basename "$whl")
 
-            # Extract package name from wheel filename prefix
+            # Extract package name part from wheel filename (separated by underscores in whl)
             pkg_raw=$(echo "$fname" | cut -d'-' -f1)
 
-            # PEP503 normalization: replace underscores with hyphens
+            # Convert package name to PEP503 normalized form (replace underscores with hyphens)
             pkg_norm=$(echo "$pkg_raw" | tr '_' '-')
 
             mkdir -p docs/simple/$pkg_norm
