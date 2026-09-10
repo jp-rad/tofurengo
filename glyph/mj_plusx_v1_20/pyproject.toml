@@ -1,6 +1,6 @@
 # code/glyph/<project folder>/pyproject.toml
 [project]
-name = "tofurengo-data-mj-plusx-v1_20"
+name = "tofurengo-data-mj-plusx-v1-20"
 
 dynamic = ["version"]
 requires-python = ">=3.8"
