@@ -33,4 +33,4 @@ path = "../../__about__.py"
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/tofurengo"]
+packages = ["src/tofurengo_data"]

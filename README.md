@@ -39,7 +39,7 @@ tofurengo_data
 ├── mj_plus
 │   └── v4_10/             # contains GLYPH_TABLE
 └── mj_plusx
-    └── v1_20/             # contains GLYPH_TABLE
+     └── v1_20/             # contains GLYPH_TABLE
 
 ```
 
