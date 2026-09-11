@@ -25,12 +25,7 @@
     return annot
 %>
 
-<%def name="title()">
-  ここにタイトル
-</%def>
-
-<%def name="get_readme_md()"/>
-
+<%def name="show_readme_li_list()"/>
 <%def name="show_readme_as_html()"/>
 
 <%def name="ident(name)"><span class="ident">${name}</span></%def>
@@ -333,7 +328,11 @@
       % endfor
       </ul>
     </li>
-    <li><h3><a href="#header-readme">README</a></h3></li>
+    <li><h3><a href="#header-readme">README</a></h3>
+      <ul>
+        ${self.show_readme_li_list()}
+      </ul>
+    </li>
     % endif
 
     % if variables:
