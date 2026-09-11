@@ -57,6 +57,18 @@ Each module under `tofurengo_data.*` represents an independently versioned datas
 
 *(Note: A `template` module is available in the source repository for creating custom dataset packages, though it is not included in published distributions.)*
 
+### Dataset & Font Mapping
+
+The table below maps each `tofurengo_data` module to its corresponding `dataset` identifier, `version`, and recommended fonts.
+
+| Module Name | `glyph_set` | `version` | Font |
+| --- | --- | --- | --- |
+| **`tofurengo_data.mj.v6_02_201`**      | `"mj"`       | `"6.02.201"`      | IPAmjMincho (`ipamjm.ttf`) |
+| **`tofurengo_data.mj.v6_02_201_onka`** | `"mj"`       | `"6.02.201_onka"` | IPAmjMincho (`ipamjm.ttf`) |
+| **`tofurengo_data.mj_plus.v4_10`**     | `"mj_plus"`  | `"4.10"`          | DWPIMincho (`DWPIMincho.ttf`) |
+| **`tofurengo_data.mj_plusx.v1_20`**    | `"mj_plusx"` | `"1.20"`          | DWPIexMincho (`DWPIexMincho.ttf`) |
+
+
 ## Installation
 
 There are **two installation methods** available depending on your requirements:
