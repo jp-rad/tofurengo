@@ -43,9 +43,8 @@ jobs:
 
       - name: Install tools
         run: |
-          sudo apt-get update && sudo apt-get install -y pandoc
           pip install --upgrade pip
-          pip install build hatchling pdoc3
+          pip install build hatchling markdown
 
       # ---------------------------------------------------------
       # 1. Build all packages
@@ -118,56 +117,55 @@ jobs:
           echo '  </body></html>' >> docs/simple/index.html
 
       # ---------------------------------------------------------
-      # 4. Extract pdoc3 CSS and Convert Markdown Pages
+      # 4. Convert GLYPH-TAG-SPECS.ja.md to GitHub Styled HTML
       # ---------------------------------------------------------
-      - name: Create docs directory and Extract pdoc3 CSS
+      - name: Convert Specification Markdown to HTML
         run: |
           mkdir -p docs
 
-          python -c "
-          import pdoc.cli
+          # Convert Markdown to HTML body with markdown extensions enabled (tables, code syntax highlighting)
+          python -m markdown -x extra -x codehilite GLYPH-TAG-SPECS.ja.md > docs/spec_body.html
 
-          template = pdoc.tpl_lookup.get_template('css.mako')
-          css = template.render()
-
-          with open('docs/pdoc.css', 'w', encoding='utf-8') as f:
-              f.write(css)
-              f.write('''
-              /* Layout fixes for Pandoc generated markdown */
-              body {
-                  padding: 2em;
-                  max-width: 1200px;
-                  margin: 0 auto;
+          # Assemble HTML file using GitHub default CSS template (github-markdown-css)
+          cat << 'EOF' > docs/specification.ja.html
+          <!DOCTYPE html>
+          <html lang="ja">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Glyph Tag Specification (Japanese)</title>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.9.0/github-markdown.min.css">
+            <style>
+              .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
               }
-              #content {
-                  max-width: 100% !important;
+              @media (max-width: 767px) {
+                .markdown-body {
+                  padding: 15px;
+                }
               }
-              ''')
-          "
+            </style>
+          </head>
+          <body class="markdown-body">
+          EOF
 
-      - name: Convert Markdown files to HTML with pdoc3 style
-        run: |
-          # ./README.md -> docs/index.html
-          pandoc README.md \
-            -s \
-            -c pdoc.css \
-            -o docs/index.html \
-            --metadata title="Home"
+          cat docs/spec_body.html >> docs/specification.ja.html
+          echo '</body></html>' >> docs/specification.ja.html
 
-          # ./GLYPH-TAG-SPECS.ja.md -> docs/specification.ja.html
-          pandoc GLYPH-TAG-SPECS.ja.md \
-            -s \
-            -c pdoc.css \
-            -o docs/specification.ja.html \
-            --metadata title="Glyph Tag Specification (Japanese)"
+          # Clean up temporary body file
+          rm docs/spec_body.html
 
       # ---------------------------------------------------------
-      # 5. Copy pre-generated pdoc HTML files to docs/api
+      # 5. Copy pre-generated pdoc HTML files directly to docs/
       # ---------------------------------------------------------
-      - name: Copy tofurengo docs to docs/api
+      - name: Copy tofurengo docs directly to docs/
         run: |
-          mkdir -p docs/api
-          cp -r docs/tofurengo/* docs/api/
+          mkdir -p docs
+          cp -r docs/tofurengo/* docs/
 
       # ---------------------------------------------------------
       # 6. Deploy to GitHub Pages
