@@ -7,8 +7,9 @@ Traditionally, many Japanese personal names and place names containing variant k
 
 **tofurengo** enables system compliance with Japan's Moji Joho Kiban (Character Information Infrastructure) and the Unicode IVS international standard. By representing glyphs through standard Glyph Tags (`MJxxxxxx` / `GJxxxxxx`), it eliminates reliance on Gaiji and ensures accurate, lossless glyph data exchange across systems.
 
+[**"Glyph Tag Specification"**](https://jp-rad.github.io/tofurengo/specification.ja.html):
 For detailed rules, formats, and normalization behavior of Glyph Tags,
-please refer to the [**"Glyph Tag Specification"**](https://jp-rad.github.io/tofurengo/specification.ja.html). The specification is
+please refer to the "Glyph Tag Specification". The specification is
 written in Japanese only.
 
 
@@ -44,7 +45,7 @@ tofurengo_data
 ├── mj_plus
 │   └── v4_10/             # contains GLYPH_TABLE
 └── mj_plusx
-     └── v1_20/             # contains GLYPH_TABLE
+    └── v1_20/             # contains GLYPH_TABLE
 
 ```
 
