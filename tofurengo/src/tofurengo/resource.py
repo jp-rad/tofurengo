@@ -34,28 +34,61 @@ def normalize_version(version: str) -> str:
     ver = re.sub(r"[.\-_]", "_", ver)
     return f"v{ver}"
 
+def normalize_name(name: str) -> str:
+    """Normalize a module or package name according to PEP 503 rules.
+
+    Converts characters to lowercase and replaces runs of separator characters
+    (`-`, `_`, `.`) with a single hyphen `-`.
+
+    Args:
+        name: The module or package name string to normalize.
+
+    Returns:
+        The PEP 503 normalized name string.
+    """
+    return re.sub(r"[-_.]+", "-", name).lower()
+
 
 def resolve_wheel_name(module_name: str) -> str:
-    """
-    Resolve installed wheel distribution name for a module.
+    """Resolve the installed distribution package name for a given module.
 
-    If metadata lookup fails, fallback to hyphenated module path.
+    This function normalizes the input module name and compares it against
+    the normalized distribution names listed in the metadata environment.
+    If no matching installed distribution is found, it falls back to the
+    normalized module name.
+
+    Args:
+        module_name: The module or namespace path (e.g.,
+            `tofurengo_data.mj_plusx.v1_20`).
+
+    Returns:
+        The exact distribution package name as registered in metadata if found;
+        otherwise, the normalized `module_name`.
+
+    Examples:
+        >>> resolve_wheel_name("tofurengo_data.mj_plusx.v1_20")
+        'tofurengo-data-mj-plusx-v1-20'
+
+        >>> resolve_wheel_name("yaml")
+        'PyYAML'
     """
+    # 1. Normalize module_name
+    norm_module_name = normalize_name(module_name)
+
     try:
+        # 2. Retrieve metadata distribution mapping
         dist_map = packages_distributions()
-        parts = module_name.split(".")
 
-        # Try full path → parent namespaces
-        for i in range(len(parts), 0, -1):
-            ns = ".".join(parts[:i])
-            dists = dist_map.get(ns)
-            if dists:
-                return dists[0]
+        # 3. Normalize each distribution name in dists and compare
+        for dists in dist_map.values():
+            for dist in dists:
+                if normalize_name(dist) == norm_module_name:
+                    return dist
     except Exception:
         pass
 
-    # Fallback heuristic
-    return module_name.replace(".", "-").replace("_", "-")
+    # 4. Fallback to normalized module_name
+    return norm_module_name
 
 
 def load_dataset_module(base: str, glyph_set: str, version: str):

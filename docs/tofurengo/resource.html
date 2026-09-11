@@ -146,6 +146,41 @@ glyph_set="mj"
 version="6.02.201"
 → "tofurengo_data.mj.v6_02_201"</p></div>
 </dd>
+<dt id="tofurengo.resource.normalize_name"><code class="name flex">
+<span>def <span class="ident">normalize_name</span></span>(<span>name: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def normalize_name(name: str) -&gt; str:
+    &#34;&#34;&#34;Normalize a module or package name according to PEP 503 rules.
+
+    Converts characters to lowercase and replaces runs of separator characters
+    (`-`, `_`, `.`) with a single hyphen `-`.
+
+    Args:
+        name: The module or package name string to normalize.
+
+    Returns:
+        The PEP 503 normalized name string.
+    &#34;&#34;&#34;
+    return re.sub(r&#34;[-_.]+&#34;, &#34;-&#34;, name).lower()</code></pre>
+</details>
+<div class="desc"><p>Normalize a module or package name according to PEP 503 rules.</p>
+<p>Converts characters to lowercase and replaces runs of separator characters
+(<code>-</code>, <code>_</code>, <code>.</code>) with a single hyphen <code>-</code>.</p>
+<dl>
+<dt>Args</dt>
+<dt>-----=</dt>
+<dt><strong><code>name</code></strong></dt>
+<dd>The module or package name string to normalize.</dd>
+</dl>
+<p>Returns
+-----=
+The PEP 503 normalized name string.</p></div>
+</dd>
 <dt id="tofurengo.resource.normalize_version"><code class="name flex">
 <span>def <span class="ident">normalize_version</span></span>(<span>version: str) ‑> str</span>
 </code></dt>
@@ -189,29 +224,69 @@ version="6.02.201"
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def resolve_wheel_name(module_name: str) -&gt; str:
-    &#34;&#34;&#34;
-    Resolve installed wheel distribution name for a module.
+    &#34;&#34;&#34;Resolve the installed distribution package name for a given module.
 
-    If metadata lookup fails, fallback to hyphenated module path.
+    This function normalizes the input module name and compares it against
+    normalized distribution package names in the metadata environment.
+    If no matching installed distribution is found, it falls back to the
+    normalized module name.
+
+    Args:
+        module_name: The dot-separated or underscore-separated module or
+            namespace path (e.g., `tofurengo_data.mj_plusx.v1_20`).
+
+    Returns:
+        The exact distribution package name as registered in metadata if found;
+        otherwise, the normalized `module_name`.
+
+    Examples:
+        &gt;&gt;&gt; resolve_wheel_name(&#34;tofurengo_data.mj_plusx.v1_20&#34;)
+        &#39;tofurengo-data-mj-plusx-v1-20&#39;
+
+        &gt;&gt;&gt; resolve_wheel_name(&#34;yaml&#34;)
+        &#39;PyYAML&#39;
     &#34;&#34;&#34;
+    # 1. Normalize module_name
+    norm_module_name = normalize_name(module_name)
+
     try:
+        # 2. Retrieve metadata distribution mapping
         dist_map = packages_distributions()
-        parts = module_name.split(&#34;.&#34;)
 
-        # Try full path → parent namespaces
-        for i in range(len(parts), 0, -1):
-            ns = &#34;.&#34;.join(parts[:i])
-            dists = dist_map.get(ns)
-            if dists:
+        # 3. Compare normalized keys and return original distribution name if matched
+        for key, dists in dist_map.items():
+            if dists and normalize_name(key) == norm_module_name:
                 return dists[0]
     except Exception:
         pass
 
-    # Fallback heuristic
-    return module_name.replace(&#34;.&#34;, &#34;-&#34;).replace(&#34;_&#34;, &#34;-&#34;)</code></pre>
+    # 4. Fallback to normalized module_name
+    return norm_module_name</code></pre>
 </details>
-<div class="desc"><p>Resolve installed wheel distribution name for a module.</p>
-<p>If metadata lookup fails, fallback to hyphenated module path.</p></div>
+<div class="desc"><p>Resolve the installed distribution package name for a given module.</p>
+<p>This function normalizes the input module name and compares it against
+normalized distribution package names in the metadata environment.
+If no matching installed distribution is found, it falls back to the
+normalized module name.</p>
+<dl>
+<dt>Args</dt>
+<dt>-----=</dt>
+<dt><strong><code>module_name</code></strong></dt>
+<dd>The dot-separated or underscore-separated module or
+namespace path (e.g., <code>tofurengo_data.mj_plusx.v1_20</code>).</dd>
+</dl>
+<p>Returns
+-----=
+The exact distribution package name as registered in metadata if found;
+otherwise, the normalized <code>module_name</code>.</p>
+<p>Examples
+-----=</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; resolve_wheel_name(&quot;tofurengo_data.mj_plusx.v1_20&quot;)
+'tofurengo-data-mj-plusx-v1-20'
+</code></pre>
+<pre><code class="language-python-repl">&gt;&gt;&gt; resolve_wheel_name(&quot;yaml&quot;)
+'PyYAML'
+</code></pre></div>
 </dd>
 </dl>
 </section>
@@ -256,6 +331,7 @@ version="6.02.201"
 <li><code><a title="tofurengo.resource.extract_required_symbols" href="#tofurengo.resource.extract_required_symbols">extract_required_symbols</a></code></li>
 <li><code><a title="tofurengo.resource.get_resource" href="#tofurengo.resource.get_resource">get_resource</a></code></li>
 <li><code><a title="tofurengo.resource.load_dataset_module" href="#tofurengo.resource.load_dataset_module">load_dataset_module</a></code></li>
+<li><code><a title="tofurengo.resource.normalize_name" href="#tofurengo.resource.normalize_name">normalize_name</a></code></li>
 <li><code><a title="tofurengo.resource.normalize_version" href="#tofurengo.resource.normalize_version">normalize_version</a></code></li>
 <li><code><a title="tofurengo.resource.resolve_wheel_name" href="#tofurengo.resource.resolve_wheel_name">resolve_wheel_name</a></code></li>
 </ul>
