@@ -123,7 +123,7 @@ jobs:
         run: |
           mkdir -p docs
 
-          # Convert Markdown to HTML body with markdown extensions enabled (tables, code syntax highlighting)
+          # Convert Markdown to HTML body with markdown extensions enabled
           python -m markdown -x extra -x codehilite GLYPH-TAG-SPECS.ja.md > docs/spec_body.html
 
           # Assemble HTML file using GitHub default CSS template (github-markdown-css)
@@ -187,10 +187,16 @@ jobs:
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v6
 
+      - name: Create Pages Archive
+        run: |
+          tar --dereference --hard-dereference -cvf artifact.tar -C docs .
+
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
-          path: 'docs'
+          name: github-pages
+          path: artifact.tar
+          retention-days: 1
 
       - name: Deploy to GitHub Pages
         id: deployment
