@@ -167,7 +167,7 @@ jobs:
       - name: Copy tofurengo docs to docs/api
         run: |
           mkdir -p docs/api
-          cp -r tofurengo/docs/tofurengo/* docs/api/
+          cp -r docs/tofurengo/* docs/api/
 
       # ---------------------------------------------------------
       # 6. Deploy to GitHub Pages
