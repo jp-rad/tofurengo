@@ -12,7 +12,7 @@ import {
   normalizeAndRender,
 
   MARK_LB,
-  TAG_PATTERN,
+  TAG_PATTERN_SOURCE,
   IssueLevel,
   TagIssue,
   ParsedTag,
@@ -57,8 +57,8 @@ describe("index.js tag_parser re-exports", () => {
     expect(MARK_LB).toBe(tagParser.MARK_LB);
   });
 
-  test("TAG_PATTERN", () => {
-    expect(TAG_PATTERN).toBe(tagParser.TAG_PATTERN);
+  test("TAG_PATTERN_SOURCE", () => {
+    expect(TAG_PATTERN_SOURCE).toBe(tagParser.TAG_PATTERN_SOURCE);
   });
 
   test("IssueLevel", () => {
@@ -116,9 +116,10 @@ describe("index.js primitive behavior sanity checks", () => {
     expect(MARK_LB).toBe("\u0002");
   });
 
-  test("TAG_PATTERN matches basic tag", () => {
-    const m = "{MJ000001}".match(TAG_PATTERN);
+  test("TAG_PATTERN_SOURCE matches basic tag", () => {
+    const m = "{MJ000001}".match(TAG_PATTERN_SOURCE);
     expect(m).not.toBeNull();
+    expect(m[0]).toBe("{MJ000001}");
   });
 
   test("ucsToGlyph works", () => {
