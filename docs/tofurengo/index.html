@@ -44,8 +44,9 @@ el.replaceWith(d);
 <h3 id="problem-key-objective">Problem &amp; Key Objective</h3>
 <p>Traditionally, many Japanese personal names and place names containing variant kanji relied on proprietary custom characters (<strong>Gaiji</strong>). When exchanging data between different systems, Gaiji leads to corrupted text and a loss of precise glyph information.</p>
 <p><strong>tofurengo</strong> enables system compliance with Japan's Moji Joho Kiban (Character Information Infrastructure) and the Unicode IVS international standard. By representing glyphs through standard Glyph Tags (<code>MJxxxxxx</code> / <code>GJxxxxxx</code>), it eliminates reliance on Gaiji and ensures accurate, lossless glyph data exchange across systems.</p>
-<p>For detailed rules, formats, and normalization behavior of Glyph Tags,
-please refer to the <a href="https://jp-rad.github.io/tofurengo/specification.ja.html"><strong>"Glyph Tag Specification"</strong></a>. The specification is
+<p><a href="https://jp-rad.github.io/tofurengo/specification.ja.html"><strong>"Glyph Tag Specification"</strong></a>:
+For detailed rules, formats, and normalization behavior of Glyph Tags,
+please refer to the "Glyph Tag Specification". The specification is
 written in Japanese only.</p>
 <h2 id="features">Features</h2>
 <ul>
@@ -80,7 +81,7 @@ tofurengo_data
 ├── mj_plus
 │   └── v4_10/             # contains GLYPH_TABLE
 └── mj_plusx
-     └── v1_20/             # contains GLYPH_TABLE
+    └── v1_20/             # contains GLYPH_TABLE
 
 </code></pre>
 <p>Each module under <code>tofurengo_data.*</code> represents an independently versioned dataset exposing its glyph table through the <code>GLYPH_TABLE</code> symbol.</p>
