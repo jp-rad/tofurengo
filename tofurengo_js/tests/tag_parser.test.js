@@ -7,7 +7,7 @@ import { describe, test, expect } from "vitest";
 
 import {
     MARK_LB,
-    TAG_PATTERN,
+    TAG_PATTERN_SOURCE,
     IssueLevel,
     TagIssue,
     ParsedTag,
@@ -58,24 +58,24 @@ describe("TagParser escape and restore", () => {
     });
 });
 
-describe("TAG_PATTERN", () => {
+describe("TAG_PATTERN_SOURCE", () => {
     test("matches simple tag", () => {
         const text = "A {MJ000001} B";
-        const matches = [...text.matchAll(TAG_PATTERN)];
+        const matches = [...text.matchAll(new RegExp(TAG_PATTERN_SOURCE, "g"))];
         expect(matches.length).toBe(1);
         expect(matches[0][1]).toBe("MJ000001");
     });
 
     test("matches tag with properties", () => {
         const text = "A {MJ000001 b=U+3005} B";
-        const matches = [...text.matchAll(TAG_PATTERN)];
+        const matches = [...text.matchAll(new RegExp(TAG_PATTERN_SOURCE, "g"))];
         expect(matches.length).toBe(1);
         expect(matches[0][1]).toBe("MJ000001 b=U+3005");
     });
 
     test("does not match newline inside tag", () => {
         const text = "A {MJ000001\nb=U+3005} B";
-        const matches = [...text.matchAll(TAG_PATTERN)];
+        const matches = [...text.matchAll(new RegExp(TAG_PATTERN_SOURCE, "g"))];
         expect(matches.length).toBe(0);
     });
 });
