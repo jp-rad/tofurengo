@@ -38,43 +38,15 @@ el.replaceWith(d);
 <section id="section-intro">
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
-<dl>
-<dt><code class="name"><a title="tofurengo.builder" href="builder.html">tofurengo.builder</a></code></dt>
-<dd>
-<div class="desc"><p>Factory module for initializing Glyph Normalizer and Renderer instances …</p></div>
-</dd>
-<dt><code class="name"><a title="tofurengo.glyph_normalizer" href="glyph_normalizer.html">tofurengo.glyph_normalizer</a></code></dt>
-<dd>
-<div class="desc"><p>Glyph Tag normalization models and processing engine for the tofurengo library …</p></div>
-</dd>
-<dt><code class="name"><a title="tofurengo.glyph_renderer" href="glyph_renderer.html">tofurengo.glyph_renderer</a></code></dt>
-<dd>
-<div class="desc"><p>Glyph Tag renderer module for the tofurengo library …</p></div>
-</dd>
-<dt><code class="name"><a title="tofurengo.replacer" href="replacer.html">tofurengo.replacer</a></code></dt>
-<dd>
-<div class="desc"><p>Replacer and normalization closures for glyph tags …</p></div>
-</dd>
-<dt><code class="name"><a title="tofurengo.resource" href="resource.html">tofurengo.resource</a></code></dt>
-<dd>
-<div class="desc"><p>Dynamic dataset resource loader for the tofurengo library …</p></div>
-</dd>
-<dt><code class="name"><a title="tofurengo.tag_parser" href="tag_parser.html">tofurengo.tag_parser</a></code></dt>
-<dd>
-<div class="desc"><p>Tag parsing, replacement protocols, and placeholder escaping utilities …</p></div>
-</dd>
-<dt><code class="name"><a title="tofurengo.ucs" href="ucs.html">tofurengo.ucs</a></code></dt>
-<dd>
-<div class="desc"><p>Unicode Code Point (UCS) sequence and native glyph conversion utilities …</p></div>
-</dd>
-</dl>
 <h2 class="section-title" id="header-readme">README</h2>
 <h1 id="tofurengo">tofurengo</h1>
 <p><strong>tofurengo</strong> is a Python toolkit that provides a unified "Glyph Tag" abstraction layer for handling large-scale Japanese glyph systems, such as <strong>MJ</strong> (using <code>MJxxxxxx</code> glyph tags) and <strong>MJ+</strong> (which extends MJ by adding administrative glyphs tagged as <code>GJxxxxxx</code>). Both systems are widely used in Japanese government and public sector applications.</p>
 <h3 id="problem-key-objective">Problem &amp; Key Objective</h3>
 <p>Traditionally, many Japanese personal names and place names containing variant kanji relied on proprietary custom characters (<strong>Gaiji</strong>). When exchanging data between different systems, Gaiji leads to corrupted text and a loss of precise glyph information.</p>
 <p><strong>tofurengo</strong> enables system compliance with Japan's Moji Joho Kiban (Character Information Infrastructure) and the Unicode IVS international standard. By representing glyphs through standard Glyph Tags (<code>MJxxxxxx</code> / <code>GJxxxxxx</code>), it eliminates reliance on Gaiji and ensures accurate, lossless glyph data exchange across systems.</p>
+<p>For detailed rules, formats, and normalization behavior of Glyph Tags,
+please refer to the <a href="https://jp-rad.github.io/tofurengo/specification.ja.html"><strong>"Glyph Tag Specification"</strong></a>. The specification is
+written in Japanese only.</p>
 <h2 id="features">Features</h2>
 <ul>
 <li>
@@ -216,6 +188,37 @@ print(rendered_esc)
 <li>The core <code>tofurengo</code> engine does not embed any heavy datasets out of the box.</li>
 <li>Namespace packages allow multiple dataset versions to coexist without conflicts.</li>
 </ul>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="tofurengo.builder" href="builder.html">tofurengo.builder</a></code></dt>
+<dd>
+<div class="desc"><p>Factory module for initializing Glyph Normalizer and Renderer instances …</p></div>
+</dd>
+<dt><code class="name"><a title="tofurengo.glyph_normalizer" href="glyph_normalizer.html">tofurengo.glyph_normalizer</a></code></dt>
+<dd>
+<div class="desc"><p>Glyph Tag normalization models and processing engine for the tofurengo library …</p></div>
+</dd>
+<dt><code class="name"><a title="tofurengo.glyph_renderer" href="glyph_renderer.html">tofurengo.glyph_renderer</a></code></dt>
+<dd>
+<div class="desc"><p>Glyph Tag renderer module for the tofurengo library …</p></div>
+</dd>
+<dt><code class="name"><a title="tofurengo.replacer" href="replacer.html">tofurengo.replacer</a></code></dt>
+<dd>
+<div class="desc"><p>Replacer and normalization closures for glyph tags …</p></div>
+</dd>
+<dt><code class="name"><a title="tofurengo.resource" href="resource.html">tofurengo.resource</a></code></dt>
+<dd>
+<div class="desc"><p>Dynamic dataset resource loader for the tofurengo library …</p></div>
+</dd>
+<dt><code class="name"><a title="tofurengo.tag_parser" href="tag_parser.html">tofurengo.tag_parser</a></code></dt>
+<dd>
+<div class="desc"><p>Tag parsing, replacement protocols, and placeholder escaping utilities …</p></div>
+</dd>
+<dt><code class="name"><a title="tofurengo.ucs" href="ucs.html">tofurengo.ucs</a></code></dt>
+<dd>
+<div class="desc"><p>Unicode Code Point (UCS) sequence and native glyph conversion utilities …</p></div>
+</dd>
+</dl>
 </section>
 <section>
 </section>
@@ -229,6 +232,15 @@ print(rendered_esc)
 <ul></ul>
 </div>
 <ul id="index">
+<li><h3><a href="#header-readme">README</a></h3>
+<ul>
+<li><code><a href="#tofurengo">tofurengo</a></code></li>
+<li><code><a href="#installation">Installation</a></code></li>
+<li><code><a href="#usage-example">Usage Example</a></code></li>
+<li><code><a href="#data-sources">Data Sources (IPA, DWPI)</a></code></li>
+<li><code><a href="#license">License (MIT)</a></code></li>
+</ul>
+</li>
 <li><h3><a href="#header-submodules">Sub-modules</a></h3>
 <ul>
 <li><code><a title="tofurengo.builder" href="builder.html">tofurengo.builder</a></code></li>
@@ -238,15 +250,6 @@ print(rendered_esc)
 <li><code><a title="tofurengo.resource" href="resource.html">tofurengo.resource</a></code></li>
 <li><code><a title="tofurengo.tag_parser" href="tag_parser.html">tofurengo.tag_parser</a></code></li>
 <li><code><a title="tofurengo.ucs" href="ucs.html">tofurengo.ucs</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-readme">README</a></h3>
-<ul>
-<li><code><a href="#tofurengo">tofurengo</a></code></li>
-<li><code><a href="#installation">Installation</a></code></li>
-<li><code><a href="#usage-example">Usage Example</a></code></li>
-<li><code><a href="#data-sources">Data Sources (IPA, DWPI)</a></code></li>
-<li><code><a href="#license">License (MIT)</a></code></li>
 </ul>
 </li>
 </ul>

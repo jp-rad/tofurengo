@@ -143,16 +143,16 @@
 
   <section>
     % if submodules:
+    <h2 class="section-title" id="header-readme">README</h2>
+    ${self.show_readme_as_html()}
+
     <h2 class="section-title" id="header-submodules">Sub-modules</h2>
     <dl>
     % for m in submodules:
       <dt><code class="name">${link(m)}</code></dt>
       <dd>${show_desc(m, short=True)}</dd>
     % endfor
-    </dl>
-    
-    <h2 class="section-title" id="header-readme">README</h2>
-    ${self.show_readme_as_html()}
+    </dl>    
     % endif
   </section>
 
@@ -321,16 +321,16 @@
     % endif
 
     % if submodules:
+    <li><h3><a href="#header-readme">README</a></h3>
+      <ul>
+        ${self.show_readme_li_list()}
+      </ul>
+    </li>
     <li><h3><a href="#header-submodules">Sub-modules</a></h3>
       <ul>
       % for m in submodules:
         <li><code>${link(m)}</code></li>
       % endfor
-      </ul>
-    </li>
-    <li><h3><a href="#header-readme">README</a></h3>
-      <ul>
-        ${self.show_readme_li_list()}
       </ul>
     </li>
     % endif
