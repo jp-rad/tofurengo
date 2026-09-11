@@ -1,4 +1,4 @@
-# code/src/tofurengo/__about__.py
+# code/__about__.py
 
 # tool.hatch.version
 __version__ = "0.10.2"

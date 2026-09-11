@@ -21,6 +21,16 @@
             "problemMatcher": []
         },
         {
+            "label": "pytest package tofurengo",
+            "type": "shell",
+            "command": "pytest",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}/code/tofurengo",
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "build package tofurengo",
             "type": "shell",
             "command": "python",
@@ -203,9 +213,6 @@
             "label": "rebuild package",
             "dependsOn": [
                 "compile tofurengo.data",
-                "pdoc3 package tofurengo",
-                "build package tofurengo",
-                "install package tofurengo",
                 "build package tofurengo-data-mj-v6-02-201",
                 "install package tofurengo-data-mj-v6-02-201",
                 "build package tofurengo-data-mj-v6-02-201-onka",
@@ -214,6 +221,10 @@
                 "install package tofurengo-data-mj-plus-v4-10",
                 "build package tofurengo-data-mj-plusx-v1-20",
                 "install package tofurengo-data-mj-plusx-v1-20",
+                "pdoc3 package tofurengo",
+                "pytest package tofurengo",
+                "build package tofurengo",
+                "install package tofurengo",
             ],
             "dependsOrder": "sequence",
             "problemMatcher": [],

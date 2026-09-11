@@ -10,7 +10,7 @@ export { normalize, render, normalizeAndRender } from "./glyph_tag.js";
 // Low-Level Modules and Primitives for Custom Extensions
 export {
     MARK_LB,
-    TAG_PATTERN,
+    TAG_PATTERN_SOURCE,
     IssueLevel,
     TagIssue,
     ParsedTag,
