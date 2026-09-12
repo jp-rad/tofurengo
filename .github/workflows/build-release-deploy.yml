@@ -1,4 +1,4 @@
-name: Build PEP503 Index and Deploy Pages
+name: Build, Release and Deploy
 
 on:
   push:
@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  build-release-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,6 +27,11 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: "3.x"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
 
       - name: Install tools
         run: |
@@ -56,8 +61,14 @@ jobs:
         run: python -m build
         working-directory: glyph/mj_plusx_v1_20
 
+      - name: Build tofurengo_js
+        run: |
+          npm ci
+          npm run build
+        working-directory: tofurengo_js
+
       # --------------------------------------------------------- #
-      # 2. Collect wheels
+      # 2. Collect wheels and release assets
       # --------------------------------------------------------- #
       - name: Collect wheels
         run: |
@@ -68,13 +79,19 @@ jobs:
           cp glyph/mj_plus_v4_10/dist/*.whl docs/wheels/
           cp glyph/mj_plusx_v1_20/dist/*.whl docs/wheels/
 
+      - name: Collect release assets
+        run: |
+          mkdir -p release_assets
+          cp docs/wheels/*.whl release_assets/
+          cp tofurengo_js/dist/tofurengo.min.js release_assets/
+
       # --------------------------------------------------------- #
       # 3. Create GitHub Release and Upload Assets
       # --------------------------------------------------------- #
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: docs/wheels/*.whl
+          files: release_assets/*
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
