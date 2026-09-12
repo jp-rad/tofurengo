@@ -186,6 +186,18 @@
             "problemMatcher": []
         },
         {
+            "label": "download tofurengo.data",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "tools/downloaders/download_data.py"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/code",
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "compile tofurengo.data",
             "type": "shell",
             "command": "python",
@@ -201,6 +213,15 @@
             "problemMatcher": []
         },
         {
+            "label": "test tofurengo-js",
+            "type": "shell",
+            "command": "npm run test -- --run",
+            "options": {
+                "cwd": "${workspaceFolder}/code/tofurengo_js",
+            },
+            "problemMatcher": [],
+        },
+        {
             "label": "build tofurengo-js",
             "type": "shell",
             "command": "npm run build",
@@ -212,6 +233,7 @@
         {
             "label": "rebuild package",
             "dependsOn": [
+                "download tofurengo.data",
                 "compile tofurengo.data",
                 "build package tofurengo-data-mj-v6-02-201",
                 "install package tofurengo-data-mj-v6-02-201",
@@ -221,10 +243,12 @@
                 "install package tofurengo-data-mj-plus-v4-10",
                 "build package tofurengo-data-mj-plusx-v1-20",
                 "install package tofurengo-data-mj-plusx-v1-20",
-                "pdoc3 package tofurengo",
                 "pytest package tofurengo",
+                "pdoc3 package tofurengo",
                 "build package tofurengo",
                 "install package tofurengo",
+                "test tofurengo-js",
+                "build tofurengo-js",
             ],
             "dependsOrder": "sequence",
             "problemMatcher": [],

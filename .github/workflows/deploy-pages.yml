@@ -4,18 +4,6 @@ on:
   push:
     tags:
       - "*.*.*"
-  workflow_dispatch:
-    inputs:
-      git_ref:
-        description: "Branch, Tag, or Commit SHA to checkout"
-        required: false
-        default: "main"
-        type: string
-      reason:
-        description: "Reason for manual run"
-        required: false
-        default: "Manual trigger for testing"
-        type: string
 
 permissions:
   contents: read

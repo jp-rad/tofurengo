@@ -7,7 +7,11 @@ Traditionally, many Japanese personal names and place names containing variant k
 
 **tofurengo** enables system compliance with Japan's Moji Joho Kiban (Character Information Infrastructure) and the Unicode IVS international standard. By representing glyphs through standard Glyph Tags (`MJxxxxxx` / `GJxxxxxx`), it eliminates reliance on Gaiji and ensures accurate, lossless glyph data exchange across systems.
 
-[**"Glyph Tag Specification"**](https://jp-rad.github.io/tofurengo/specification.ja.html):
+
+### Resources & Links
+
+* [GitHub Repository (`jp-rad/tofurengo`)](https://github.com/jp-rad/tofurengo)
+* [Glyph Tag Specification (Japanese)](https://jp-rad.github.io/tofurengo/specification.ja.html) - 
 For detailed rules, formats, and normalization behavior of Glyph Tags,
 please refer to the "Glyph Tag Specification". The specification is
 written in Japanese only.
@@ -52,6 +56,18 @@ tofurengo_data
 Each module under `tofurengo_data.*` represents an independently versioned dataset exposing its glyph table through the `GLYPH_TABLE` symbol.
 
 *(Note: A `template` module is available in the source repository for creating custom dataset packages, though it is not included in published distributions.)*
+
+### Dataset & Font Mapping
+
+The table below maps each `tofurengo_data` module to its corresponding `dataset` identifier, `version`, and recommended fonts.
+
+| Module Name | `glyph_set` | `version` | Font |
+| --- | --- | --- | --- |
+| **`tofurengo_data.mj.v6_02_201`**      | `"mj"`       | `"6.02.201"`      | IPAmjMincho (`ipamjm.ttf`) |
+| **`tofurengo_data.mj.v6_02_201_onka`** | `"mj"`       | `"6.02.201_onka"` | IPAmjMincho (`ipamjm.ttf`) |
+| **`tofurengo_data.mj_plus.v4_10`**     | `"mj_plus"`  | `"4.10"`          | DWPIMincho (`DWPIMincho.ttf`) |
+| **`tofurengo_data.mj_plusx.v1_20`**    | `"mj_plusx"` | `"1.20"`          | DWPIexMincho (`DWPIexMincho.ttf`) |
+
 
 ## Installation
 
