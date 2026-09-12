@@ -82,7 +82,9 @@ jobs:
       - name: Collect release assets
         run: |
           mkdir -p release_assets
-          cp docs/wheels/*.whl release_assets/
+          # Compress all wheels into zip and tar.gz archives
+          zip -j release_assets/tofurengo-wheels.zip docs/wheels/*.whl
+          tar -czvf release_assets/tofurengo-wheels.tar.gz -C docs/wheels .
           cp tofurengo_js/dist/tofurengo.min.js release_assets/
 
       # --------------------------------------------------------- #
