@@ -1,5 +1,8 @@
 /**
  * Tag parsing, replacement protocols, and placeholder escaping utilities for client-side JavaScript.
+ *
+ * Provides core parsing logic, token escaping, issue collection data structures,
+ * and high-level string transformation pipeline functionality.
  */
 
 // Control character used as a temporary placeholder for escaped opening braces '{{'
@@ -8,10 +11,12 @@ export const MARK_LB = "\u0002";
 // Pattern string for matching a single tag enclosed in single braces: {glyph_name key=value ...}
 // Disallows newlines inside tags and captures raw content inside group 1.
 // Note: Defined as a plain string to avoid shared mutable RegExp state (lastIndex).
-export const TAG_PATTERN_SOURCE = "\\{([ \\t]*[A-Za-z0-9_\\-]+(?:[ \\t]+[^}\\r\\n]+)?)\\}";
+export const TAG_PATTERN_SOURCE =
+  "\\{([ \\t]*[A-Za-z0-9_\\-]+(?:[ \\t]+[^}\\r\\n]+)?)\\}";
 
 /**
  * Severity levels for tag processing diagnostics.
+ *
  * @readonly
  * @enum {string}
  */
@@ -27,13 +32,20 @@ export class TagIssue {
   /**
    * @param {string} code - Machine-readable issue category identifier.
    * @param {string} message - Human-readable failure explanation.
-   * @param {string} [level=IssueLevel.ERROR] - Severity level.
-   * @param {Object} [details={}] - Additional contextual metadata.
+   * @param {string} [level=IssueLevel.ERROR] - Severity level of the issue.
+   * @param {Record<string, any>} [details={}] - Additional contextual metadata.
    */
   constructor(code, message, level = IssueLevel.ERROR, details = {}) {
+    /** @type {string} */
     this.code = code;
+
+    /** @type {string} */
     this.message = message;
+
+    /** @type {string} */
     this.level = level;
+
+    /** @type {Record<string, any>} */
     this.details = details;
   }
 }
@@ -44,24 +56,35 @@ export class TagIssue {
 export class ParsedTag {
   /**
    * @param {string} glyphName - Primary glyph identifier.
-   * @param {Object.<string, string>} [properties={}] - Extracted key-value pairs.
-   * @param {string} [rawContent=""] - Original unparsed tag content.
+   * @param {Record<string, string>} [properties={}] - Extracted key-value pairs.
+   * @param {string} [rawContent=""] - Original unparsed tag content inside braces.
    */
   constructor(glyphName, properties = {}, rawContent = "") {
+    /** @type {string} */
     this.glyphName = glyphName;
+
+    /** @type {Record<string, string>} */
     this.properties = properties;
+
+    /** @type {string} */
     this.rawContent = rawContent;
 
     // Shortcut accessors
+    /** @type {string|null} */
     this.b = properties["b"] || null;
+
+    /** @type {string|null} */
     this.v = properties["v"] || null;
+
+    /** @type {string|null} */
     this.set = properties["set"] || null;
   }
 
   /**
    * Construct a ParsedTag instance directly from raw tag inner content.
+   *
    * @param {string} content - Raw inner string extracted from inside a tag.
-   * @returns {ParsedTag}
+   * @returns {ParsedTag} Newly created ParsedTag instance.
    */
   static fromContent(content) {
     const rawStr = content.trim();
@@ -104,31 +127,34 @@ export class ParsedTag {
 }
 
 /**
- * Utility class for handling brace escaping, restoration, and tag parsing.
+ * Utility class for handling brace escaping, restoration, and tag parsing pipelines.
  */
 export class TagParser {
   /**
-   * Replace escaped double-brace sequences with a temporary control character.
-   * @param {string} text
-   * @returns {string}
+   * Replace escaped double-brace sequences with a temporary control character placeholder.
+   *
+   * @param {string} text - Input text containing double braces `{{`.
+   * @returns {string} Text with double braces replaced by placeholder tokens.
    */
   static escapeTokens(text) {
     return text.replace(/\{\{/g, MARK_LB);
   }
 
   /**
-   * Restore internal placeholders back to double-brace escape sequences ('{{').
-   * @param {string} text
-   * @returns {string}
+   * Restore internal placeholders back to double-brace escape sequences (`{{`).
+   *
+   * @param {string} text - Text containing temporary placeholder tokens.
+   * @returns {string} Text with placeholders restored to literal `{{`.
    */
   static restoreTokensPreserveEscape(text) {
     return text.replace(new RegExp(MARK_LB, "g"), "{{");
   }
 
   /**
-   * Restore internal placeholders to single unescaped braces ('{').
-   * @param {string} text
-   * @returns {string}
+   * Restore internal placeholders to single unescaped braces (`{`).
+   *
+   * @param {string} text - Text containing temporary placeholder tokens.
+   * @returns {string} Text with placeholders converted to single `{`.
    */
   static restoreTokensUnescape(text) {
     return text.replace(new RegExp(MARK_LB, "g"), "{");
@@ -136,10 +162,11 @@ export class TagParser {
 
   /**
    * Execute the full transformation pipeline: escape -> substitute -> restore.
+   *
    * @param {string} text - Target text to process.
-   * @param {function(ParsedTag, Array<TagIssue>): string} replacer - Callback receiving (parsedTag, issues).
-   * @param {boolean} [unescape=true] - Convert preserved placeholders to '{' if true.
-   * @param {Array<TagIssue>|null} [issues=null] - Mutable array to collect encountered issues.
+   * @param {function(ParsedTag, Array<TagIssue>): string} replacer - Callback receiving parsed tag and issues array.
+   * @param {boolean} [unescape=true] - Convert preserved placeholders to single '{' if true.
+   * @param {Array<TagIssue>|null} [issues=null] - Optional mutable array to collect encountered issues.
    * @returns {string} Transformed output text.
    */
   static processPipeline(text, replacer, unescape = true, issues = null) {

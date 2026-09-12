@@ -5,123 +5,127 @@
  * to perform text-wide glyph tag normalization and error collection.
  */
 
-
 import { TagParser, ParsedTag, TagIssue, IssueLevel } from "./tag_parser.js";
 
 /**
  * Creates a normalization replacement callback function for parsed tags.
  *
- * @param {Object.<string, Object>} glyphTable - Dictionary mapping glyph IDs to property maps.
+ * @param {Record<string, Object>} glyphTable - Dictionary mapping glyph IDs to property maps.
  * @param {string} setName - Target dataset name (e.g., 'mj').
  * @returns {function(ParsedTag, Array<TagIssue>): string} Replace callback compliant with TagParser.
  */
 export function makeReplaceFn(glyphTable, setName) {
-    return function replaceFn(tag, issues) {
-        const glyph = tag.glyphName;
+  return function replaceFn(tag, issues) {
+    const glyph = tag.glyphName;
 
-        // 1. Empty glyph name validation
-        if (!glyph) {
-            const code = "error.glyph.missing";
-            const msg = "Glyph name is missing in the tag.";
-            issues.push(
-                new TagIssue(code, `${code}: ${msg}`, IssueLevel.ERROR, {
-                    rawContent: tag.rawContent,
-                    set: setName,
-                })
-            );
-            return `{${tag.rawContent}}`;
-        }
+    // 1. Empty glyph name validation
+    if (!glyph) {
+      const code = "error.glyph.missing";
+      const msg = "Glyph name is missing in the tag.";
+      issues.push(
+        new TagIssue(code, `${code}: ${msg}`, IssueLevel.ERROR, {
+          rawContent: tag.rawContent,
+          set: setName,
+        })
+      );
+      return `{${tag.rawContent}}`;
+    }
 
-        // 2. Glyph existence validation
-        if (!Object.prototype.hasOwnProperty.call(glyphTable, glyph)) {
-            const code = "error.glyph.not_found";
-            const msg = `Glyph '${glyph}' does not exist in dataset '${setName}'.`;
-            issues.push(
-                new TagIssue(code, `${code}: ${msg}`, IssueLevel.ERROR, {
-                    glyph: glyph,
-                    set: setName,
-                })
-            );
-            return `{${tag.rawContent}}`;
-        }
+    // 2. Glyph existence validation
+    if (!Object.prototype.hasOwnProperty.call(glyphTable, glyph)) {
+      const code = "error.glyph.not_found";
+      const msg = `Glyph '${glyph}' does not exist in dataset '${setName}'.`;
+      issues.push(
+        new TagIssue(code, `${code}: ${msg}`, IssueLevel.ERROR, {
+          glyph: glyph,
+          set: setName,
+        })
+      );
+      return `{${tag.rawContent}}`;
+    }
 
-        const entry = glyphTable[glyph];
+    const entry = glyphTable[glyph];
 
-        // 3. Glyph active status validation
-        const isActive = entry.active !== undefined ? entry.active : true;
-        if (!isActive) {
-            const code = "error.glyph.archived";
-            const msg = `Glyph '${glyph}' is archived or inactive.`;
-            issues.push(
-                new TagIssue(code, `${code}: ${msg}`, IssueLevel.ERROR, {
-                    glyph: glyph,
-                    set: setName,
-                })
-            );
-            return `{${tag.rawContent}}`;
-        }
+    // 3. Glyph active status validation
+    const isActive = entry.active !== undefined ? entry.active : true;
+    if (!isActive) {
+      const code = "error.glyph.archived";
+      const msg = `Glyph '${glyph}' is archived or inactive.`;
+      issues.push(
+        new TagIssue(code, `${code}: ${msg}`, IssueLevel.ERROR, {
+          glyph: glyph,
+          set: setName,
+        })
+      );
+      return `{${tag.rawContent}}`;
+    }
 
-        // 4. Canonical tag formatting
-        const bVal = entry.b || "";
-        const vVal = entry.v || "";
-
-        return `{${glyph} b=${bVal} v=${vVal} set=${setName}}`;
-    };
+    // 4. Canonical tag formatting
+    const bVal = entry.b || "";
+    const vVal = entry.v || "";
+    return `{${glyph} b=${bVal} v=${vVal} set=${setName}}`;
+  };
 }
 
 /**
  * Result object returned by GlyphNormalizer processing.
  */
 export class NormalizationResult {
-    /**
-     * @param {string} text - Transformed output text.
-     * @param {Array<TagIssue>} issues - List of issues encountered during processing.
-     */
-    constructor(text, issues = []) {
-        this.text = text;
-        this.issues = issues;
-    }
+  /**
+   * @param {string} text - Transformed output text.
+   * @param {Array<TagIssue>} [issues=[]] - List of issues encountered during processing.
+   */
+  constructor(text, issues = []) {
+    /** @type {string} */
+    this.text = text;
 
-    /**
-     * Check if any error level issues occurred.
-     * @returns {boolean}
-     */
-    hasErrors() {
-        return this.issues.some((issue) => issue.level === IssueLevel.ERROR);
-    }
+    /** @type {Array<TagIssue>} */
+    this.issues = issues;
+  }
+
+  /**
+   * Check if any error level issues occurred.
+   *
+   * @returns {boolean} True if any issue has level ERROR, false otherwise.
+   */
+  hasErrors() {
+    return this.issues.some((issue) => issue.level === IssueLevel.ERROR);
+  }
 }
 
 /**
  * High-level service class for normalizing glyph tags in text strings.
  */
 export class GlyphNormalizer {
-    /**
-     * @param {Object.<string, Object>} glyphTable - Dataset table mapping glyph IDs to attributes.
-     * @param {string} setName - Dataset identifier (e.g., 'mj').
-     */
-    constructor(glyphTable, setName) {
-        this.glyphTable = glyphTable;
-        this.setName = setName;
-        this.replaceFn = makeReplaceFn(glyphTable, setName);
-    }
+  /**
+   * @param {Record<string, Object>} glyphTable - Dataset table mapping glyph IDs to attributes.
+   * @param {string} setName - Dataset identifier (e.g., 'mj').
+   */
+  constructor(glyphTable, setName) {
+    /** @type {Record<string, Object>} */
+    this.glyphTable = glyphTable;
 
-    /**
-     * Normalize all tags in the input text.
-     *
-     * @param {string} text - Raw input text containing tags.
-     * @param {boolean} [unescape=true] - If true, converts preserved placeholders ('{{') to '{'.
-     * @returns {NormalizationResult} Result object containing normalized text and issues.
-     */
-    normalize(text) {
-        const issues = [];
-        const normalizedText = TagParser.processPipeline(
-            text,
-            this.replaceFn,
-            false, // useBase is not relevant here
-            issues
-        );
+    /** @type {string} */
+    this.setName = setName;
 
-        return new NormalizationResult(normalizedText, issues);
-    }
+    /** @type {function(ParsedTag, Array<TagIssue>): string} */
+    this.replaceFn = makeReplaceFn(glyphTable, setName);
+  }
+
+  /**
+   * Normalize all tags in the input text.
+   *
+   * @param {string} text - Raw input text containing tags.
+   * @returns {NormalizationResult} Result object containing normalized text and issues.
+   */
+  normalize(text) {
+    const issues = [];
+    const normalizedText = TagParser.processPipeline(
+      text,
+      this.replaceFn,
+      false, // useBase is not relevant here
+      issues
+    );
+    return new NormalizationResult(normalizedText, issues);
+  }
 }
-
