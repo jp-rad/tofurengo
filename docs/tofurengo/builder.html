@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <meta name="generator" content="pdoc3 0.11.6">
 <title>tofurengo.builder API documentation</title>
-<meta name="description" content="Factory module for initializing Glyph Normalizer and Renderer instances …">
+<meta name="description" content="Factory module for initializing Glyph Normalizer, Renderer, and Simplifier instances …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
@@ -36,9 +36,9 @@ el.replaceWith(d);
 <h1 class="title">Module <code>tofurengo.builder</code></h1>
 </header>
 <section id="section-intro">
-<p>Factory module for initializing Glyph Normalizer and Renderer instances.</p>
-<p>This module provides factory functions to instantiate <code>GlyphNormalizer</code> and
-<code>GlyphRenderer</code> configured with resources loaded from <code><a title="tofurengo.resource" href="resource.html">tofurengo.resource</a></code>.</p>
+<p>Factory module for initializing Glyph Normalizer, Renderer, and Simplifier instances.</p>
+<p>This module provides factory functions to instantiate <code>GlyphNormalizer</code>,
+<code>GlyphRenderer</code>, and <code>GlyphSimplifier</code> configured with resources loaded from <code><a title="tofurengo.resource" href="resource.html">tofurengo.resource</a></code>.</p>
 </section>
 <section>
 </section>
@@ -70,8 +70,8 @@ el.replaceWith(d);
     Args:
         glyph_set: Identifier of the target glyph set (e.g., &#39;mj&#39;).
         version: Dataset version string (e.g., &#39;6.02.201&#39;).
-        set_name: Optional explicit name tag for the set attribute. Defaults to `glyph_set`.
-        base: Package base path for locating dataset resources. Defaults to `&#39;tofurengo_data&#39;`.
+        set_name: Optional explicit name tag for the set attribute. If `None`, defaults to the value of `glyph_set`.
+        base: Package base path for locating dataset resources. Defaults to `&#39;tofurengo.data&#39;`.
 
     Returns:
         GlyphNormalizer: Fully configured normalizer instance ready for processing.
@@ -101,9 +101,9 @@ and constructs the replacement closure required for tag normalization.</p>
 <dt><strong><code>version</code></strong></dt>
 <dd>Dataset version string (e.g., '6.02.201').</dd>
 <dt><strong><code>set_name</code></strong></dt>
-<dd>Optional explicit name tag for the set attribute. Defaults to <code>glyph_set</code>.</dd>
+<dd>Optional explicit name tag for the set attribute. If <code>None</code>, defaults to the value of <code>glyph_set</code>.</dd>
 <dt><strong><code>base</code></strong></dt>
-<dd>Package base path for locating dataset resources. Defaults to <code>'tofurengo_data'</code>.</dd>
+<dd>Package base path for locating dataset resources. Defaults to <code>'tofurengo.data'</code>.</dd>
 <dt>Returns</dt>
 <dt>-----=</dt>
 <dt><code>GlyphNormalizer</code></dt>
@@ -128,7 +128,8 @@ and constructs the replacement closure required for tag normalization.</p>
     glyph_table: dict[str, Any],
     set_name: str,
 ) -&gt; GlyphNormalizer:
-    &#34;&#34;&#34;Build a `GlyphNormalizer` instance directly using a provided glyph table.
+    &#34;&#34;&#34;
+    Build a `GlyphNormalizer` instance directly using a provided glyph table.
 
     Args:
         glyph_table: Dictionary mapping glyph keys to their attributes.
@@ -194,14 +195,11 @@ and constructs the replacement closure required for tag normalization.</p>
     &#34;&#34;&#34;
     Build a `GlyphRenderer` instance with specified fallback and mapping preferences.
 
-    The renderer resolves normalized Glyph Tags into Unicode characters based on
-    base (`b=`) or variant (`v=`) attributes.
+    The renderer resolves normalized Glyph Tags into Unicode characters based on base (`b=`) or variant (`v=`) attributes.
 
     Args:
-        use_base: If `True`, prioritizes base UCS attributes (`b=`) over variant
-            attributes (`v=`). Defaults to `False`.
-        tofu: Fallback UCS sequence string or literal character used when a glyph
-            cannot be resolved. Defaults to `&#39;U+25A1&#39;` (White Square □).
+        use_base: If `True`, prioritizes base UCS attributes (`b=`) over variant attributes (`v=`). Defaults to `False`.
+        tofu: Fallback UCS sequence string or literal character used when a glyph cannot be resolved. Defaults to `&#39;U+25A1&#39;` (White Square □).
 
     Returns:
         GlyphRenderer: Configured renderer instance.
@@ -213,17 +211,14 @@ and constructs the replacement closure required for tag normalization.</p>
     return GlyphRenderer(use_base=use_base, tofu=tofu)</code></pre>
 </details>
 <div class="desc"><p>Build a <code>GlyphRenderer</code> instance with specified fallback and mapping preferences.</p>
-<p>The renderer resolves normalized Glyph Tags into Unicode characters based on
-base (<code>b=</code>) or variant (<code>v=</code>) attributes.</p>
+<p>The renderer resolves normalized Glyph Tags into Unicode characters based on base (<code>b=</code>) or variant (<code>v=</code>) attributes.</p>
 <dl>
 <dt>Args</dt>
 <dt>-----=</dt>
 <dt><strong><code>use_base</code></strong></dt>
-<dd>If <code>True</code>, prioritizes base UCS attributes (<code>b=</code>) over variant
-attributes (<code>v=</code>). Defaults to <code>False</code>.</dd>
+<dd>If <code>True</code>, prioritizes base UCS attributes (<code>b=</code>) over variant attributes (<code>v=</code>). Defaults to <code>False</code>.</dd>
 <dt><strong><code>tofu</code></strong></dt>
-<dd>Fallback UCS sequence string or literal character used when a glyph
-cannot be resolved. Defaults to <code>'U+25A1'</code> (White Square □).</dd>
+<dd>Fallback UCS sequence string or literal character used when a glyph cannot be resolved. Defaults to <code>'U+25A1'</code> (White Square □).</dd>
 <dt>Returns</dt>
 <dt>-----=</dt>
 <dt><code>GlyphRenderer</code></dt>
@@ -233,6 +228,38 @@ cannot be resolved. Defaults to <code>'U+25A1'</code> (White Square □).</dd>
 -----=</p>
 <pre><code class="language-python-repl">&gt;&gt;&gt; renderer = build_renderer(use_base=True, tofu=&quot;U+FFFD&quot;)
 &gt;&gt;&gt; rendered_text = renderer.render(&quot;Sample {MJ000001 b=U+30F1}&quot;)
+</code></pre></div>
+</dd>
+<dt id="tofurengo.builder.build_simplifier"><code class="name flex">
+<span>def <span class="ident">build_simplifier</span></span>(<span>) ‑> <a title="tofurengo.glyph_simplifier.GlyphSimplifier" href="glyph_simplifier.html#tofurengo.glyph_simplifier.GlyphSimplifier">GlyphSimplifier</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build_simplifier() -&gt; GlyphSimplifier:
+    &#34;&#34;&#34;
+    Build a `GlyphSimplifier` instance.
+
+    Returns:
+        GlyphSimplifier: Configured simplifier instance.
+
+    Example:
+        &gt;&gt;&gt; simplifier = build_simplifier()
+    &#34;&#34;&#34;
+    return GlyphSimplifier()</code></pre>
+</details>
+<div class="desc"><p>Build a <code>GlyphSimplifier</code> instance.</p>
+<dl>
+<dt>Returns</dt>
+<dt>-----=</dt>
+<dt><code>GlyphSimplifier</code></dt>
+<dd>Configured simplifier instance.</dd>
+</dl>
+<p>Example
+-----=</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; simplifier = build_simplifier()
 </code></pre></div>
 </dd>
 </dl>
@@ -255,6 +282,7 @@ cannot be resolved. Defaults to <code>'U+25A1'</code> (White Square □).</dd>
 <li><code><a title="tofurengo.builder.build_normalizer" href="#tofurengo.builder.build_normalizer">build_normalizer</a></code></li>
 <li><code><a title="tofurengo.builder.build_normalizer_from_table" href="#tofurengo.builder.build_normalizer_from_table">build_normalizer_from_table</a></code></li>
 <li><code><a title="tofurengo.builder.build_renderer" href="#tofurengo.builder.build_renderer">build_renderer</a></code></li>
+<li><code><a title="tofurengo.builder.build_simplifier" href="#tofurengo.builder.build_simplifier">build_simplifier</a></code></li>
 </ul>
 </li>
 </ul>

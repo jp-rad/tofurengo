@@ -233,6 +233,7 @@
         {
             "label": "rebuild package",
             "dependsOn": [
+                "uninstall packages",
                 "download tofurengo.data",
                 "compile tofurengo.data",
                 "build package tofurengo-data-mj-v6-02-201",
