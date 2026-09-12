@@ -18,7 +18,7 @@
 * **ファイルパス**:
   * `tools/data/deluxe文字選択DWPIex明朝1.2版.mdb`
   * `tools/data/deluxe文字選択DWPI明朝4.10版V2.0.mdb`
-* **取得元・関連情報**: [MJ文字情報一覧表 | 文字情報技術促進協議会](https://moji.or.jp/mojikiban/mjlist/) / 一般社団法人デジタル広域推進機構
+* **取得元・関連情報**: [DWPI明朝について | 一般社団法人デジタル広域推進機構](https://www.digitalwidearea.org/dwpi_mincho)
 * **概要**: 行政事務標準文字（DWPI明朝 / DWPIex明朝）の実装用データおよび、文字同定・検索用の属性情報（読み、部首、画数、IVS等）を収録した Microsoft Access データベースファイルです。
 
 ### 2. MJ文字情報一覧表 (Ver. 006.02)
