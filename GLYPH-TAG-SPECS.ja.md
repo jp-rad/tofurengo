@@ -1,6 +1,6 @@
 # Glyph Tag Specification (仕様書)
 **Author:** jp-rad  
-**Established:** 2026‑10‑02 (つるつる豆腐の日)  
+**Established:** 2026‑10‑02 (つるっつる豆腐の日)  
 **Last Updated:** 2026‑10‑02  
 
 
