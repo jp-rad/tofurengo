@@ -63,7 +63,7 @@ jobs:
 
       - name: Build tofurengo_js
         run: |
-          npm ci
+          npm install
           npm run build
         working-directory: tofurengo_js
 
