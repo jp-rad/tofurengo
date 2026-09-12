@@ -6,7 +6,7 @@ on:
       - "*.*.*"
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -17,7 +17,6 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -34,9 +33,9 @@ jobs:
           pip install --upgrade pip
           pip install build hatchling markdown
 
-      # ---------------------------------------------------------
+      # --------------------------------------------------------- #
       # 1. Build all packages
-      # ---------------------------------------------------------
+      # --------------------------------------------------------- #
       - name: Build tofurengo
         run: python -m build
         working-directory: tofurengo
@@ -57,9 +56,9 @@ jobs:
         run: python -m build
         working-directory: glyph/mj_plusx_v1_20
 
-      # ---------------------------------------------------------
+      # --------------------------------------------------------- #
       # 2. Collect wheels
-      # ---------------------------------------------------------
+      # --------------------------------------------------------- #
       - name: Collect wheels
         run: |
           mkdir -p docs/wheels
@@ -69,20 +68,29 @@ jobs:
           cp glyph/mj_plus_v4_10/dist/*.whl docs/wheels/
           cp glyph/mj_plusx_v1_20/dist/*.whl docs/wheels/
 
-      # ---------------------------------------------------------
-      # 3. Generate PEP503 index (Package names with hyphens)
-      # ---------------------------------------------------------
+      # --------------------------------------------------------- #
+      # 3. Create GitHub Release and Upload Assets
+      # --------------------------------------------------------- #
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: docs/wheels/*.whl
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # --------------------------------------------------------- #
+      # 4. Generate PEP503 index (Package names with hyphens)
+      # --------------------------------------------------------- #
       - name: Create PEP503 index
         run: |
           mkdir -p docs/simple
-
           # Initialize root simple index
           echo '<!DOCTYPE html><html><body>' > docs/simple/index.html
 
           for whl in docs/wheels/*.whl; do
             [ -e "$whl" ] || continue
             fname=$(basename "$whl")
-
             pkg_raw=$(echo "$fname" | cut -d'-' -f1)
             pkg_norm=$(echo "$pkg_raw" | tr '_' '-')
 
@@ -104,13 +112,12 @@ jobs:
 
           echo '  </body></html>' >> docs/simple/index.html
 
-      # ---------------------------------------------------------
-      # 4. Convert GLYPH-TAG-SPECS.ja.md to GitHub Styled HTML
-      # ---------------------------------------------------------
+      # --------------------------------------------------------- #
+      # 5. Convert GLYPH-TAG-SPECS.ja.md to GitHub Styled HTML
+      # --------------------------------------------------------- #
       - name: Convert Specification Markdown to HTML
         run: |
           mkdir -p docs
-
           # Convert Markdown to HTML body with markdown extensions enabled
           python -m markdown -x extra -x codehilite GLYPH-TAG-SPECS.ja.md > docs/spec_body.html
 
@@ -140,24 +147,23 @@ jobs:
           </head>
           <body class="markdown-body">
           EOF
-
           cat docs/spec_body.html >> docs/specification.ja.html
           echo '</body></html>' >> docs/specification.ja.html
 
           # Clean up temporary body file
           rm docs/spec_body.html
 
-      # ---------------------------------------------------------
-      # 5. Copy pre-generated pdoc HTML files directly to docs/
-      # ---------------------------------------------------------
+      # --------------------------------------------------------- #
+      # 6. Copy pre-generated pdoc HTML files directly to docs/
+      # --------------------------------------------------------- #
       - name: Copy tofurengo docs directly to docs/
         run: |
           mkdir -p docs
           cp -r docs/tofurengo/* docs/
 
-      # ---------------------------------------------------------
-      # 6. Deploy to GitHub Pages
-      # ---------------------------------------------------------
+      # --------------------------------------------------------- #
+      # 7. Deploy to GitHub Pages
+      # --------------------------------------------------------- #
       - name: Check GitHub Pages status
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -166,7 +172,6 @@ jobs:
             -H "Authorization: token $GH_TOKEN" \
             -H "Accept: application/vnd.github+json" \
             "https://api.github.com/repos/${{ github.repository }}/pages")
-
           if [ "$STATUS_CODE" -ne 200 ]; then
             echo "[ERROR] GitHub Pages is not enabled. Go to Settings > Pages and set Source to 'GitHub Actions'."
             exit 1
