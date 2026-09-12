@@ -1,4 +1,4 @@
-name: Build PEP503 Index and Deploy Pages
+name: Build, Release and Deploy
 
 on:
   push:
@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  build-release-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
