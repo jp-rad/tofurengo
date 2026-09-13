@@ -37,6 +37,7 @@ tofurengo
 ├── builder
 ├── glyph_normalizer
 ├── glyph_renderer
+├── glyph_simplifier
 ├── replacer
 ├── resource
 ├── tag_parser
