@@ -25,8 +25,9 @@
     return annot
 %>
 
-<%def name="show_readme_li_list()"/>
 <%def name="show_readme_as_html()"/>
+<%def name="show_readme_li_list()"/>
+<%def name="show_links_li_list()"/>
 
 <%def name="ident(name)"><span class="ident">${name}</span></%def>
 
@@ -371,6 +372,8 @@
       </ul>
     </li>
     % endif
+    
+    ${self.show_links_index()}
 
     </ul>
   </nav>
