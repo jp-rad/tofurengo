@@ -78,8 +78,8 @@ Provides built-in datasets for MJ (<code>MJxxxxxx</code>) and MJ+ (<code>GJxxxxx
 ├── resource
 ├── tag_parser
 └── ucs
-
-tofurengo_data
+</code></pre>
+<pre><code class="language-text">tofurengo_data
 ├── mj
 │   ├── v6_02_201/         # contains GLYPH_TABLE
 │   └── v6_02_201_onka/    # contains GLYPH_TABLE
@@ -87,7 +87,6 @@ tofurengo_data
 │   └── v4_10/             # contains GLYPH_TABLE
 └── mj_plusx
     └── v1_20/             # contains GLYPH_TABLE
-
 </code></pre>
 <p>Each module under <code>tofurengo_data.*</code> represents an independently versioned dataset exposing its glyph table through the <code>GLYPH_TABLE</code> symbol.</p>
 <p><em>(Note: A <code>template</code> module is available in the source repository for creating custom dataset packages, though it is not included in published distributions.)</em></p>
@@ -133,7 +132,8 @@ tofurengo_data
 <p>There are <strong>two installation methods</strong> available depending on your requirements:</p>
 <h3 id="1-install-from-github-pages-recommended">1. Install from GitHub Pages (Recommended)</h3>
 <p>Uses a PEP 503–compatible simple index hosted on GitHub Pages. Pip downloads pre-built wheel files for fast installation without requiring local build tools.</p>
-<pre><code class="language-bash">pip3 install --upgrade --no-deps --index-url https://jp-rad.github.io/tofurengo/simple/ \
+<pre><code class="language-bash">
+pip3 install --upgrade --no-deps --index-url https://jp-rad.github.io/tofurengo/simple/ \
     tofurengo \
     tofurengo-data-mj-plus-v4-10 \
     tofurengo-data-mj-plusx-v1-20 \
@@ -143,7 +143,8 @@ tofurengo_data
 </code></pre>
 <h3 id="2-install-directly-from-git-repository">2. Install Directly from Git Repository</h3>
 <p>Pulls source code directly from GitHub to build packages locally. Ideal for development versions, testing unreleased changes, or source-level debugging.</p>
-<pre><code class="language-bash">pip3 install --upgrade --no-deps \
+<pre><code class="language-bash">
+pip3 install --upgrade --no-deps \
     tofurengo@git+https://github.com/jp-rad/tofurengo.git@main#subdirectory=tofurengo \
     tofurengo-data-mj-plus-v4-10@git+https://github.com/jp-rad/tofurengo.git@main#subdirectory=glyph/mj_plus_v4_10 \
     tofurengo-data-mj-plusx-v1-20@git+https://github.com/jp-rad/tofurengo.git@main#subdirectory=glyph/mj_plusx_v1_20 \
@@ -153,12 +154,14 @@ tofurengo_data
 </code></pre>
 <h2 id="check-installed-version">Check Installed Version</h2>
 <p>Verify all installed <code>tofurengo</code> core and dataset packages:</p>
-<pre><code class="language-bash">pip3 list | grep tofurengo
+<pre><code class="language-bash">
+pip3 list | grep tofurengo
 
 </code></pre>
 <h2 id="uninstallation">Uninstallation</h2>
 <p>Remove the core engine and all installed dataset packages in one command:</p>
-<pre><code class="language-bash">pip3 uninstall -y \
+<pre><code class="language-bash">
+pip3 uninstall -y \
     tofurengo \
     tofurengo-data-mj-plus-v4-10 \
     tofurengo-data-mj-plusx-v1-20 \
@@ -168,7 +171,8 @@ tofurengo_data
 </code></pre>
 <h2 id="usage-example">Usage Example</h2>
 <p>The following example demonstrates how to build a <code>GlyphNormalizer</code> and <code>GlyphRenderer</code>, normalize Hentaigana (variant kana) Glyph Tags in text, and render them into plain Unicode characters.</p>
-<pre><code class="language-python">from tofurengo.builder import build_normalizer, build_renderer
+<pre><code class="language-python">
+from tofurengo.builder import build_normalizer, build_renderer
 
 # Input text containing an MJ Hentaigana Glyph Tag (An-no-A)
 text = &quot;'{MJ090001}'&quot;
