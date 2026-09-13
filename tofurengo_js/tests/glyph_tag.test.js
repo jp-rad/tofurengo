@@ -1,6 +1,5 @@
 /**
- * Unit tests for glyph_tag.js (tofurengo_js)
- * ASCII-only comments only.
+ * Unit tests for glyph_tag.js
  */
 
 import { describe, test, expect } from "vitest";

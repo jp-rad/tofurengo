@@ -1,6 +1,5 @@
 /**
  * Unit tests for index.js (tofurengo_js)
- * ASCII-only comments only.
  */
 
 import { describe, test, expect } from "vitest";
@@ -24,6 +23,8 @@ import {
 
   GlyphRenderer,
   ucsToGlyph,
+
+  GlyphSimplifier,
 } from "../src/index.js";
 
 // Import original modules to compare identity
@@ -31,6 +32,7 @@ import * as glyphTag from "../src/glyph_tag.js";
 import * as tagParser from "../src/tag_parser.js";
 import * as glyphNormalizer from "../src/glyph_normalizer.js";
 import * as glyphRenderer from "../src/glyph_renderer.js";
+import * as glyphSimplifier from "../src/glyph_simplifier.js";
 
 //
 // High-level API re-export tests
@@ -109,6 +111,15 @@ describe("index.js glyph_renderer re-exports", () => {
 });
 
 //
+// Low-level glyph_simplifier.js re-exports
+//
+describe("index.js glyph_simplifier re-exports", () => {
+  test("GlyphSimplifier", () => {
+    expect(GlyphSimplifier).toBe(glyphSimplifier.GlyphSimplifier);
+  });
+});
+
+//
 // Basic sanity tests for primitives
 //
 describe("index.js primitive behavior sanity checks", () => {
@@ -127,4 +138,3 @@ describe("index.js primitive behavior sanity checks", () => {
     expect(ucsToGlyph("ABC")).toBe("ABC");
   });
 });
-

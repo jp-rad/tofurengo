@@ -165,11 +165,11 @@ export class TagParser {
    *
    * @param {string} text - Target text to process.
    * @param {function(ParsedTag, Array<TagIssue>): string} replacer - Callback receiving parsed tag and issues array.
-   * @param {boolean} [unescape=true] - Convert preserved placeholders to single '{' if true.
+   * @param {boolean} - Convert preserved placeholders to single '{' if true.
    * @param {Array<TagIssue>|null} [issues=null] - Optional mutable array to collect encountered issues.
    * @returns {string} Transformed output text.
    */
-  static processPipeline(text, replacer, unescape = true, issues = null) {
+  static processPipeline(text, replacer, unescape, issues = null) {
     const issueList = issues !== null ? issues : [];
     const escaped = this.escapeTokens(text);
 

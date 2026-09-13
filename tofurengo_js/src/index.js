@@ -47,3 +47,10 @@ export {
   GlyphRenderer,
   ucsToGlyph,
 } from "./glyph_renderer.js";
+
+/**
+ * Glyph simplification utilities and classes.
+ */
+export {
+  GlyphSimplifier,
+} from "./glyph_simplifier.js";

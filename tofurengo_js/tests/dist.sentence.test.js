@@ -1,6 +1,5 @@
 /**
  * Sentence-only tests for dist bundle (normalizeAndRender)
- * ASCII-only comments only.
  */
 
 import { describe, test, expect } from "vitest";

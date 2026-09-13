@@ -1,6 +1,5 @@
 /**
  * Unit tests for glyph_normalizer.js
- * ASCII-only comments only.
  */
 
 import { describe, test, expect } from "vitest";
@@ -110,7 +109,7 @@ describe("GlyphNormalizer.normalize", () => {
         expect(result.hasErrors()).toBe(true);
     });
 
-    test("escape '{{' then unescape to '{'", () => {
+    test("preserve '{{' without converting to '{'", () => {
         const norm = new GlyphNormalizer(GLYPH_TABLE, "mj");
         const result = norm.normalize("Start {{X}} {MJ000001}");
 
