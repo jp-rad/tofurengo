@@ -10,6 +10,7 @@
 // ============================================================================
 
 export {
+  simplify,
   normalize,
   render,
   normalizeAndRender,

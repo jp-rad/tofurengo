@@ -6,6 +6,7 @@ import { describe, test, expect } from "vitest";
 
 // Import from index.js (the re-export hub)
 import {
+  simplify,
   normalize,
   render,
   normalizeAndRender,
@@ -38,6 +39,10 @@ import * as glyphSimplifier from "../src/glyph_simplifier.js";
 // High-level API re-export tests
 //
 describe("index.js high-level API re-exports", () => {
+  test("simplify is re-exported correctly", () => {
+    expect(simplify).toBe(glyphTag.simplify);
+  });
+
   test("normalize is re-exported correctly", () => {
     expect(normalize).toBe(glyphTag.normalize);
   });
