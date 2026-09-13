@@ -1,11 +1,23 @@
 import { GlyphNormalizer } from "./glyph_normalizer.js";
 import { GlyphRenderer } from "./glyph_renderer.js";
+import { GlyphSimplifier } from "./glyph_simplifier.js";
 
 /**
  * @typedef {Object} NormalizationResult
  * @property {string} text - The normalized text string.
  * @property {Array<import("./tag_parser.js").TagIssue>} issues - List of parsing and normalization issues found.
  */
+
+/**
+ * Simplifies text containing Glyph Tags by stripping tag attributes.
+ *
+ * @param {string} text - Input text containing Glyph Tags.
+ * @returns {string} Simplified output text with stripped attributes.
+ */
+export function simplify(text) {
+  const simplifier = new GlyphSimplifier();
+  return simplifier.simplify(text);
+}
 
 /**
  * Normalizes glyph tags within the provided raw input text using a specified dataset table.
