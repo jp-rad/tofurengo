@@ -42,7 +42,9 @@ tofurengo
 ├── resource
 ├── tag_parser
 └── ucs
+```
 
+```text
 tofurengo_data
 ├── mj
 │   ├── v6_02_201/         # contains GLYPH_TABLE
@@ -51,7 +53,6 @@ tofurengo_data
 │   └── v4_10/             # contains GLYPH_TABLE
 └── mj_plusx
     └── v1_20/             # contains GLYPH_TABLE
-
 ```
 
 Each module under `tofurengo_data.*` represents an independently versioned dataset exposing its glyph table through the `GLYPH_TABLE` symbol.
@@ -79,6 +80,7 @@ There are **two installation methods** available depending on your requirements:
 Uses a PEP 503–compatible simple index hosted on GitHub Pages. Pip downloads pre-built wheel files for fast installation without requiring local build tools.
 
 ```bash
+
 pip3 install --upgrade --no-deps --index-url https://jp-rad.github.io/tofurengo/simple/ \
     tofurengo \
     tofurengo-data-mj-plus-v4-10 \
@@ -93,6 +95,7 @@ pip3 install --upgrade --no-deps --index-url https://jp-rad.github.io/tofurengo/
 Pulls source code directly from GitHub to build packages locally. Ideal for development versions, testing unreleased changes, or source-level debugging.
 
 ```bash
+
 pip3 install --upgrade --no-deps \
     tofurengo@git+https://github.com/jp-rad/tofurengo.git@main#subdirectory=tofurengo \
     tofurengo-data-mj-plus-v4-10@git+https://github.com/jp-rad/tofurengo.git@main#subdirectory=glyph/mj_plus_v4_10 \
@@ -107,6 +110,7 @@ pip3 install --upgrade --no-deps \
 Verify all installed `tofurengo` core and dataset packages:
 
 ```bash
+
 pip3 list | grep tofurengo
 
 ```
@@ -116,6 +120,7 @@ pip3 list | grep tofurengo
 Remove the core engine and all installed dataset packages in one command:
 
 ```bash
+
 pip3 uninstall -y \
     tofurengo \
     tofurengo-data-mj-plus-v4-10 \
@@ -130,6 +135,7 @@ pip3 uninstall -y \
 The following example demonstrates how to build a `GlyphNormalizer` and `GlyphRenderer`, normalize Hentaigana (variant kana) Glyph Tags in text, and render them into plain Unicode characters.
 
 ```python
+
 from tofurengo.builder import build_normalizer, build_renderer
 
 # Input text containing an MJ Hentaigana Glyph Tag (An-no-A)
