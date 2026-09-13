@@ -27,7 +27,7 @@
 
 <%def name="show_readme_as_html()"/>
 <%def name="show_readme_li_list()"/>
-<%def name="show_links_li_list()"/>
+<%def name="show_links_index()"/>
 
 <%def name="ident(name)"><span class="ident">${name}</span></%def>
 
@@ -334,6 +334,7 @@
       % endfor
       </ul>
     </li>
+    ${self.show_links_index()}
     % endif
 
     % if variables:
@@ -373,8 +374,6 @@
     </li>
     % endif
     
-    ${self.show_links_index()}
-
     </ul>
   </nav>
 </%def>
