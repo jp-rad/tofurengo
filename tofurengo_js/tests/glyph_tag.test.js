@@ -1,11 +1,11 @@
 /**
- * Unit tests for glyph_tag.js (tofurengo_js)
- * ASCII-only comments only.
+ * Unit tests for glyph_tag.js
  */
 
 import { describe, test, expect } from "vitest";
 
 import {
+  simplify,
   normalize,
   render,
   normalizeAndRender,
@@ -19,6 +19,26 @@ const glyphTable = {
   MJ022335: { b: "U+845B", v: "U+845B U+E0102", active: true },
   MJ999999: { active: false },
 };
+
+//
+// Tests for simplify()
+//
+describe("simplify()", () => {
+  test("empty text returns empty string", () => {
+    const out = simplify("");
+    expect(out).toBe("");
+  });
+
+  test("strips attributes from glyph tags", () => {
+    const out = simplify("A {MJ000001 b=U+3005 v=U+3005 set=mj} B");
+    expect(out).toBe("A {MJ000001} B");
+  });
+
+  test("escaped braces preserved when unescape=false", () => {
+    const out = simplify("Start {{X} {MJ000001 b=U+3005}");
+    expect(out).toBe("Start {{X} {MJ000001}");
+  });
+});
 
 //
 // Tests for normalize()

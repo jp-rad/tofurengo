@@ -96,6 +96,10 @@ export class GlyphRenderer {
     };
 
     // Execute processing pipeline with unescaping enabled (unescape=true)
-    return TagParser.processPipeline(text, renderTag, true);
+    return TagParser.processPipeline(
+      text,
+      renderTag,
+      true,
+    );
   }
 }

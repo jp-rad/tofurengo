@@ -1,6 +1,5 @@
 /**
  * Unit tests for tag_parser.js
- * ASCII-only comments only.
  */
 
 import { describe, test, expect } from "vitest";
@@ -89,7 +88,7 @@ describe("TagParser processPipeline", () => {
 
     test("escape then replace then unescape", () => {
         const replacer = (tag) => tag.glyphName;
-        const out = TagParser.processPipeline("{{X}} {MJ000001}", replacer);
+        const out = TagParser.processPipeline("{{X}} {MJ000001}", replacer, true);
         expect(out.startsWith("{X}")).toBe(true);
         expect(out.includes("MJ000001")).toBe(true);
     });

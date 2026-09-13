@@ -1,6 +1,5 @@
 /**
- * Unit tests for GlyphRenderer (string rendering version)
- * ASCII-only comments only.
+ * Unit tests for GlyphRenderer
  */
 
 import { describe, test, expect } from "vitest";

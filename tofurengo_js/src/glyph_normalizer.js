@@ -123,8 +123,8 @@ export class GlyphNormalizer {
     const normalizedText = TagParser.processPipeline(
       text,
       this.replaceFn,
-      false, // useBase is not relevant here
-      issues
+      false,  // unescape=false
+      issues,
     );
     return new NormalizationResult(normalizedText, issues);
   }
