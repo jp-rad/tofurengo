@@ -55,11 +55,18 @@ console.log(rendered);
 
 ### High-Level API
 
+#### `simplify(text)`
+
+Simplifies tags in the input text by stripping attributes and preserving only tag names.
+
+* **`text`** (`string`): Input text containing glyph tags.
+* **Returns:** `string`
+
 #### `normalize(text, glyphTable, setName)`
 
 Normalizes tags present in the input text using the provided glyph table.
 
-* **`text`** (`string`): Raw text containing glyph tags.
+* **`text`** (`string`): Input text containing glyph tags.
 * **`glyphTable`** (`Record<string, Object>`): Mapping dictionary of glyph entries.
 * **`setName`** (`string`): Name of the dataset (e.g., `'mj'`).
 * **Returns:** `{ text: string, issues: TagIssue[] }`
