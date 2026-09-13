@@ -23,3 +23,13 @@
   <li><code><a href="#data-sources">Data Sources (IPA, DWPI)</a></code></li>
   <li><code><a href="#license">License (MIT)</a></code></li>
 </%def>
+
+<%def name="show_links_index()">
+  <li><h3>Link</h3>
+    <ul>
+      <li><code><a href="https://jp-rad.github.io/tofurengo/specification.ja.html">Specification (Japanese)</a></code></li>
+      <li><code><a href="https://github.com/jp-rad/tofurengo">GitHub Repository</a></code></li>
+      <li><code><a href="https://jp-rad.github.io/tofurengo/">This GitHub Page</a></code></li>
+    </ul>
+  </li>
+</%def>

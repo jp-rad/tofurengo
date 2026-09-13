@@ -34,7 +34,7 @@ Glyph Tag は、**「処理系（プログラム・表示システム）も人�
 
 ## 2. 用語の定義（Terms and Definitions）
 
-本仕様書において使用する主要な用語の定義は以下の通りです。
+本仕様書において使用する主要な用語の定義は次の通りです。
 
 * **文字図形識別名（glyph-name）**: 特定の字形体系において文字図形（glyph）を一意に識別するための抽象的な名称（例: MJ文字図形名、GJ文字図形名、固有字形識別名）
 * **基本文字コード（Basic Character Code）**: Unicode 標準において異体字選択符号（IVS）等を含まない単一の標準コードポイント（`b` 属性）  
@@ -47,7 +47,7 @@ Unicode 標準文字のほか、IVS（Ideographic Variation Sequence）や PUP�
 
 ## 3. 構文仕様（Syntax Specification）
 
-Glyph Tag の基本構文を以下に示します。
+Glyph Tag の基本構文を次に示します。
 
 ```text
 {<glyph-name> [b=<UCSSeq>] [v=<UCSSeq>] [set=<Identifier>]}
@@ -62,7 +62,7 @@ Glyph Tag の基本構文を以下に示します。
 
 ### 3.2 タグの表現形態（基本タグと属性付きタグ）
 
-Glyph Tag には、属性記述の有無に応じて以下の2つの表現形態が存在します。
+Glyph Tag には、属性記述の有無に応じて次の2つの表現形態が存在します。
 
 * **基本タグ（Basic Tag）**: 属性記述（`b`, `v`, `set`）を持たず、`<glyph-name>` のみで構成される `{<glyph-name>}` 形式の表現  データの直接入力、手動記述、および環境に依存しない抽象的な字形指定に用います
 * **属性付きタグ（Attributed Tag）**: `<glyph-name>` に加え、1つ以上の属性記述を包含する `{<glyph-name> b=... v=... set=...}` 形式の表現  
@@ -198,21 +198,21 @@ MJ022336: { b: "U+845B", v: "U+845B U+E0103" }   // 東京都葛飾区の「葛�
 
 ### Annex C — 行政事務標準文字（MJ＋GJ）の構成
 
-行政事務標準文字は以下の要素で構成されます。
+行政事務標準文字は次の要素で構成されます。
 
 * **MJ文字**: Unicode 符号化済み文字
 * **GJ文字**: Unicode 未符号化文字（PUP にて対応）
 
 ### Annex D — GJ文字の表現手法（暫定私用面）
 
-Unicode 未符号化である GJ文字は、Glyph Tag において以下の属性構造で表現します。
+Unicode 未符号化である GJ文字は、Glyph Tag において次の属性構造で表現します。
 
 * **`b`（GJ代替文字 / fallback glyph）**: 意味的・字形的に近い既存の UCS 文字または縮退代替文字を設定
 * **`v`（GJ暫定私用コード / PUP）**: 実装基盤における私用面コードポイント（例: `U+100ABC`）を設定
 
 ### Annex E — フォント実装と参照情報
 
-MJ文字およびGJ文字を実装した代表的なフォント環境と参照URLは以下の通りです。
+MJ文字およびGJ文字を実装した代表的なフォント環境と参照URLは次の通りです。
 
 * **IPAMJ明朝**: MJ文字の UCS/IVS 実装フォント  
 [https://moji.or.jp/mojikiban/font/](https://moji.or.jp/mojikiban/font/)
