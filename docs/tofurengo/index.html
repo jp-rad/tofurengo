@@ -40,32 +40,23 @@ el.replaceWith(d);
 <section>
 <h2 class="section-title" id="header-readme">README</h2>
 <h1 id="tofurengo">tofurengo</h1>
-<p><strong>tofurengo</strong> is a Python toolkit that provides a unified "GlyphTag" abstraction layer for handling large-scale Japanese glyph systems, such as <strong>MJ</strong> (using <code>MJxxxxxx</code> GlyphTags) and <strong>MJ+</strong> (which extends MJ by adding administrative glyphs tagged as <code>GJxxxxxx</code>). Both systems are widely used in Japanese government and public sector applications.</p>
+<p>tofurengo is a Python toolkit that provides a unified "GlyphTag" abstraction layer for handling large-scale Japanese glyph systems, such as MJ (using glyph-names like <code>MJxxxxxx</code>) and MJ+ (which extends MJ by adding administrative glyphs named <code>GJxxxxxx</code>). Both systems are widely used in Japanese government and public sector applications.</p>
 <h3 id="problem-key-objective">Problem &amp; Key Objective</h3>
-<p>Traditionally, many Japanese personal names and place names containing variant kanji relied on proprietary custom characters (<strong>Gaiji</strong>). When exchanging data between different systems, Gaiji leads to corrupted text and a loss of precise glyph information.</p>
-<p><strong>tofurengo</strong> enables system compliance with Japan's Moji Joho Kiban (Character Information Infrastructure) and the Unicode IVS international standard. By representing glyphs through standard GlyphTags (<code>MJxxxxxx</code> / <code>GJxxxxxx</code>), it eliminates reliance on Gaiji and ensures accurate, lossless glyph data exchange across systems.</p>
+<p>Traditionally, many Japanese personal and place names containing variant kanji relied on proprietary custom characters (<em>Gaiji</em>). When exchanging data between different systems, <em>Gaiji</em> often leads to character corruption and loss of precise glyph information.</p>
+<p>tofurengo enables systems to comply with Japan's Moji Joho Kiban (Character Information Infrastructure) and the Unicode IVS international standard. By representing glyphs through standardized GlyphTags based on glyph-names (such as <code>MJxxxxxx</code> / <code>GJxxxxxx</code>), it eliminates reliance on <em>Gaiji</em> and ensures accurate, lossless glyph data exchange across platforms.</p>
 <h3 id="resources-links">Resources &amp; Links</h3>
 <ul>
-<li><a href="https://github.com/jp-rad/tofurengo">GitHub Repository (<code>jp-rad/tofurengo</code>)</a></li>
-<li><a href="https://jp-rad.github.io/tofurengo/specification.ja.html">GlyphTag Specification (Japanese)</a> -
-For detailed rules, formats, and normalization behavior of GlyphTags,
-please refer to the "GlyphTag Specification". The specification is
-written in Japanese only.</li>
+<li><strong>GitHub Repository:</strong> <a href="https://github.com/jp-rad/tofurengo?utm_source=gemini">jp-rad/tofurengo</a></li>
+<li><strong>GlyphTag Specification (Japanese):</strong> For detailed rules, formats, and normalization behaviors of GlyphTags, please refer to <a href="https://jp-rad.github.io/tofurengo/specification.ja.html">the GlyphTag Specification.</a> <em>(Note: The specification is available in Japanese only.)</em></li>
 </ul>
 <h2 id="features">Features</h2>
 <ul>
-<li>
-<p><strong>Unified Glyph Abstraction (GlyphTag)</strong><br>
-Handles diverse representations (<code>glyph-name</code> like <code>MJxxxxxx</code>/<code>GJxxxxxx</code>, <code>UCSSeq</code>, and <code>IVS</code>) in a single, standard GlyphTag format.</p>
-</li>
-<li>
-<p><strong>Lossless Data Exchange Across Environments</strong><br>
-Ensures reliable glyph management and exchange even in systems or environments that do not natively support IVS/VDS, eliminating character corruption.</p>
-</li>
-<li>
-<p><strong>Extensible &amp; Customizable Glyph Systems</strong><br>
-Provides built-in datasets for MJ (<code>MJxxxxxx</code>) and MJ+ (<code>GJxxxxxx</code>), while allowing users to easily define and extend their own custom <code>glyph-name</code> schemes.</p>
-</li>
+<li><strong>Unified Glyph Abstraction (GlyphTag)</strong>
+Handles diverse representations (glyph-names such as <code>MJxxxxxx</code>/<code>GJxxxxxx</code>, <code>UCSSeq</code>, and <code>IVS</code>) within a single, standardized GlyphTag format.</li>
+<li><strong>Lossless Data Exchange Across Environments</strong>
+Ensures reliable glyph management and data exchange even in systems or environments without native IVS/VDS support, preventing character corruption.</li>
+<li><strong>Extensible &amp; Customizable Glyph Systems</strong>
+Includes built-in datasets for MJ (<code>MJxxxxxx</code>) and MJ+ (<code>GJxxxxxx</code>), while allowing users to easily define and extend their own custom glyph-name schemes.</li>
 </ul>
 <h2 id="namespace-package-layout">Namespace Package Layout</h2>
 <p>The project utilizes <strong>PEP 420</strong> namespace packages. It is organized into two primary namespaces: <code>tofurengo</code> (the core engine modules) and <code>tofurengo_data</code> (independently versioned dataset modules).</p>

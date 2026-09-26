@@ -1,32 +1,27 @@
 # tofurengo
 
-**tofurengo** is a Python toolkit that provides a unified "GlyphTag" abstraction layer for handling large-scale Japanese glyph systems, such as **MJ** (using `MJxxxxxx` GlyphTags) and **MJ+** (which extends MJ by adding administrative glyphs tagged as `GJxxxxxx`). Both systems are widely used in Japanese government and public sector applications.
+tofurengo is a Python toolkit that provides a unified "GlyphTag" abstraction layer for handling large-scale Japanese glyph systems, such as MJ (using glyph-names like `MJxxxxxx`) and MJ+ (which extends MJ by adding administrative glyphs named `GJxxxxxx`). Both systems are widely used in Japanese government and public sector applications.
 
 ### Problem & Key Objective
-Traditionally, many Japanese personal names and place names containing variant kanji relied on proprietary custom characters (**Gaiji**). When exchanging data between different systems, Gaiji leads to corrupted text and a loss of precise glyph information.
 
-**tofurengo** enables system compliance with Japan's Moji Joho Kiban (Character Information Infrastructure) and the Unicode IVS international standard. By representing glyphs through standard GlyphTags (`MJxxxxxx` / `GJxxxxxx`), it eliminates reliance on Gaiji and ensures accurate, lossless glyph data exchange across systems.
+Traditionally, many Japanese personal and place names containing variant kanji relied on proprietary custom characters (*Gaiji*). When exchanging data between different systems, *Gaiji* often leads to character corruption and loss of precise glyph information.
 
+tofurengo enables systems to comply with Japan's Moji Joho Kiban (Character Information Infrastructure) and the Unicode IVS international standard. By representing glyphs through standardized GlyphTags based on glyph-names (such as `MJxxxxxx` / `GJxxxxxx`), it eliminates reliance on *Gaiji* and ensures accurate, lossless glyph data exchange across platforms.
 
 ### Resources & Links
 
-* [GitHub Repository (`jp-rad/tofurengo`)](https://github.com/jp-rad/tofurengo)
-* [GlyphTag Specification (Japanese)](https://jp-rad.github.io/tofurengo/specification.ja.html) - 
-For detailed rules, formats, and normalization behavior of GlyphTags,
-please refer to the "GlyphTag Specification". The specification is
-written in Japanese only.
-
+* **GitHub Repository:** [jp-rad/tofurengo](https://github.com/jp-rad/tofurengo?utm_source=gemini)
+* **GlyphTag Specification (Japanese):** For detailed rules, formats, and normalization behaviors of GlyphTags, please refer to [the GlyphTag Specification.](https://jp-rad.github.io/tofurengo/specification.ja.html) *(Note: The specification is available in Japanese only.)*
 
 ## Features
 
-- **Unified Glyph Abstraction (GlyphTag)**  
-  Handles diverse representations (`glyph-name` like `MJxxxxxx`/`GJxxxxxx`, `UCSSeq`, and `IVS`) in a single, standard GlyphTag format.
+* **Unified Glyph Abstraction (GlyphTag)**
+Handles diverse representations (glyph-names such as `MJxxxxxx`/`GJxxxxxx`, `UCSSeq`, and `IVS`) within a single, standardized GlyphTag format.
+* **Lossless Data Exchange Across Environments**
+Ensures reliable glyph management and data exchange even in systems or environments without native IVS/VDS support, preventing character corruption.
+* **Extensible & Customizable Glyph Systems**
+Includes built-in datasets for MJ (`MJxxxxxx`) and MJ+ (`GJxxxxxx`), while allowing users to easily define and extend their own custom glyph-name schemes.
 
-- **Lossless Data Exchange Across Environments**  
-  Ensures reliable glyph management and exchange even in systems or environments that do not natively support IVS/VDS, eliminating character corruption.
-
-- **Extensible & Customizable Glyph Systems**  
-  Provides built-in datasets for MJ (`MJxxxxxx`) and MJ+ (`GJxxxxxx`), while allowing users to easily define and extend their own custom `glyph-name` schemes.
 
 ## Namespace Package Layout
 
