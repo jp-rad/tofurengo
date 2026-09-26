@@ -132,13 +132,13 @@ jobs:
           echo '  </body></html>' >> docs/simple/index.html
 
       # --------------------------------------------------------- #
-      # 5. Convert GLYPH-TAG-SPECS.ja.md to GitHub Styled HTML
+      # 5. Convert GLYPHTAG-SPECS.ja.md to GitHub Styled HTML
       # --------------------------------------------------------- #
       - name: Convert Specification Markdown to HTML
         run: |
           mkdir -p docs
           # Convert Markdown to HTML body with markdown extensions enabled
-          python -m markdown -x extra -x codehilite GLYPH-TAG-SPECS.ja.md > docs/spec_body.html
+          python -m markdown -x extra -x codehilite GLYPHTAG-SPECS.ja.md > docs/spec_body.html
 
           # Assemble HTML file using GitHub default CSS template (github-markdown-css)
           cat << 'EOF' > docs/specification.ja.html
@@ -147,7 +147,7 @@ jobs:
           <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Glyph Tag Specification (Japanese)</title>
+            <title>GlyphTag Specification (Japanese)</title>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.9.0/github-markdown.min.css">
             <style>
               .markdown-body {

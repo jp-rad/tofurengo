@@ -1,5 +1,5 @@
 """
-Replacer and normalization closures for glyph tags.
+Replacer and normalization closures for GlyphTags.
 
 This module provides factory functions such as `make_replace_fn` to generate
 substitution callbacks compatible with `ReplaceFn` used during tag normalization pipelines.

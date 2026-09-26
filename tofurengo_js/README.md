@@ -1,10 +1,10 @@
 # tofurengo_js
 
-Client-side JavaScript library for parsing, normalizing, and rendering glyph tags in Japanese character set conversion workflows.
+Client-side JavaScript library for parsing, normalizing, and rendering GlyphTags in Japanese character set conversion workflows.
 
 ## Overview
 
-`tofurengo_js` provides lightweight utilities to process glyph tags (such as `{MJ000001 b=U+845B v=U+845B_U+E0102}`) directly in browser and Node.js environments.
+`tofurengo_js` provides lightweight utilities to process GlyphTags (such as `{MJ000001 b=U+845B v=U+845B_U+E0102}`) directly in browser and Node.js environments.
 
 ### Key Features
 
@@ -59,14 +59,14 @@ console.log(rendered);
 
 Simplifies tags in the input text by stripping attributes and preserving only tag names.
 
-* **`text`** (`string`): Input text containing glyph tags.
+* **`text`** (`string`): Input text containing GlyphTags.
 * **Returns:** `string`
 
 #### `normalize(text, glyphTable, setName)`
 
 Normalizes tags present in the input text using the provided glyph table.
 
-* **`text`** (`string`): Input text containing glyph tags.
+* **`text`** (`string`): Input text containing GlyphTags.
 * **`glyphTable`** (`Record<string, Object>`): Mapping dictionary of glyph entries.
 * **`setName`** (`string`): Name of the dataset (e.g., `'mj'`).
 * **Returns:** `{ text: string, issues: TagIssue[] }`
@@ -75,7 +75,7 @@ Normalizes tags present in the input text using the provided glyph table.
 
 Renders tags within text into Unicode characters.
 
-* **`text`** (`string`): Input text containing glyph tags.
+* **`text`** (`string`): Input text containing GlyphTags.
 * **`useBase`** (`boolean`): If `true`, prioritizes base character (`b=`) over variant (`v=`). Default: `false`.
 * **`tofu`** (`string`): Fallback Unicode character or hex string for unmapped tags. Default: `"U+25A1"`.
 * **Returns:** `string`

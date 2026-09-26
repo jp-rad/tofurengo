@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <meta name="generator" content="pdoc3 0.11.6">
 <title>tofurengo.glyph_inverse_renderer API documentation</title>
-<meta name="description" content="Inverse Glyph Tag renderer module for the tofurengo library …">
+<meta name="description" content="Inverse GlyphTag renderer module for the tofurengo library …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
@@ -36,10 +36,10 @@ el.replaceWith(d);
 <h1 class="title">Module <code>tofurengo.glyph_inverse_renderer</code></h1>
 </header>
 <section id="section-intro">
-<p>Inverse Glyph Tag renderer module for the tofurengo library.</p>
+<p>Inverse GlyphTag renderer module for the tofurengo library.</p>
 <p>This module provides the <code><a title="tofurengo.glyph_inverse_renderer.GlyphInverseRenderer" href="#tofurengo.glyph_inverse_renderer.GlyphInverseRenderer">GlyphInverseRenderer</a></code> class, which performs the
 reverse operation of <code>GlyphRenderer</code>. It converts Unicode text into
-normalized Glyph Tags, applying brace escaping and customizable glyph
+normalized GlyphTags, applying brace escaping and customizable glyph
 conversion logic.</p>
 <p>This version uses Unicode grapheme cluster segmentation so that characters
 with Ideographic Variation Sequences (IVS) are treated as single units.</p>
@@ -114,7 +114,7 @@ implementation must return None.</p>
 <pre><code class="python">class GlyphInverseRenderer:
     &#34;&#34;&#34;
     Inverse rendering engine for converting Unicode grapheme clusters into
-    normalized Glyph Tags.
+    normalized GlyphTags.
 
     This class performs the conceptual reverse of `GlyphRenderer.render()`,
     scanning text grapheme-by-grapheme and converting eligible clusters
@@ -182,7 +182,7 @@ implementation must return None.</p>
             text (str): Input Unicode string.
 
         Returns:
-            str: Output string containing normalized Glyph Tags.
+            str: Output string containing normalized GlyphTags.
         &#34;&#34;&#34;
         out: list[str] = []
 
@@ -202,7 +202,7 @@ implementation must return None.</p>
         return &#34;&#34;.join(out)</code></pre>
 </details>
 <div class="desc"><p>Inverse rendering engine for converting Unicode grapheme clusters into
-normalized Glyph Tags.</p>
+normalized GlyphTags.</p>
 <p>This class performs the conceptual reverse of <code>GlyphRenderer.render()</code>,
 scanning text grapheme-by-grapheme and converting eligible clusters
 into "{GlyphName}" tags. Literal brace characters ("{") are always
@@ -242,7 +242,7 @@ are not converted into tags.</p></div>
         text (str): Input Unicode string.
 
     Returns:
-        str: Output string containing normalized Glyph Tags.
+        str: Output string containing normalized GlyphTags.
     &#34;&#34;&#34;
     out: list[str] = []
 
@@ -279,7 +279,7 @@ no conversion is performed; only "{" is escaped.</p>
 <dt>Returns</dt>
 <dt>-----=</dt>
 <dt><code>str</code></dt>
-<dd>Output string containing normalized Glyph Tags.</dd>
+<dd>Output string containing normalized GlyphTags.</dd>
 </dl></div>
 </dd>
 </dl>

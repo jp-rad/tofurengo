@@ -1,6 +1,6 @@
-"""Glyph Tag simplifier module for the tofurengo library.
+"""GlyphTag simplifier module for the tofurengo library.
 
-This module provides the `GlyphSimplifier` class, which simplifies Glyph Tags
+This module provides the `GlyphSimplifier` class, which simplifies GlyphTags
 in text by stripping all attributes and reducing tags to their base `{<glyph-name>}` format.
 """
 
@@ -8,9 +8,9 @@ from tofurengo.tag_parser import ParsedTag, TagIssue, TagParser
 
 
 class GlyphSimplifier:
-    """Simplification engine for stripping attributes from Glyph Tags.
+    """Simplification engine for stripping attributes from GlyphTags.
 
-    Converts Glyph Tags containing attributes (such as `b=`, `v=`, or `set=`)
+    Converts GlyphTags containing attributes (such as `b=`, `v=`, or `set=`)
     back into their simplified `{<glyph-name>}` representation.
     """
 
@@ -19,10 +19,10 @@ class GlyphSimplifier:
         pass
 
     def simplify(self, text: str) -> str:
-        """Simplify Glyph Tags in the input text by stripping all attributes.
+        """Simplify GlyphTags in the input text by stripping all attributes.
 
         Args:
-            text (str): Input text containing Glyph Tags.
+            text (str): Input text containing GlyphTags.
 
         Returns:
             str: Simplified output text with `{<glyph-name>}` format tags.

@@ -29,7 +29,7 @@ describe("simplify()", () => {
     expect(out).toBe("");
   });
 
-  test("strips attributes from glyph tags", () => {
+  test("strips attributes from GlyphTags", () => {
     const out = simplify("A {MJ000001 b=U+3005 v=U+3005 set=mj} B");
     expect(out).toBe("A {MJ000001} B");
   });

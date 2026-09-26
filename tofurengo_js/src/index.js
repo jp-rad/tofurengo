@@ -1,6 +1,6 @@
 /**
  * @file index.js - Entry point for tofurengo_js library.
- * Client-side glyph tag parsing, normalization, and rendering toolkit.
+ * Client-side GlyphTag parsing, normalization, and rendering toolkit.
  *
  * @module tofurengo_js
  */

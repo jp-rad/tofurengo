@@ -19,7 +19,7 @@ describe("GlyphSimplifier", () => {
     expect(simplifier.simplify(undefined)).toBe("");
   });
 
-  test("should simplify glyph tags by removing attributes", () => {
+  test("should simplify GlyphTags by removing attributes", () => {
     const input = "Sample {MJ000001 b=U+30F1 v=U+30F1} text";
     const expected = "Sample {MJ000001} text";
     expect(simplifier.simplify(input)).toBe(expected);

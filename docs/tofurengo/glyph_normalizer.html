@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <meta name="generator" content="pdoc3 0.11.6">
 <title>tofurengo.glyph_normalizer API documentation</title>
-<meta name="description" content="Glyph Tag normalization models and processing engine for the tofurengo library …">
+<meta name="description" content="GlyphTag normalization models and processing engine for the tofurengo library …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
@@ -36,9 +36,9 @@ el.replaceWith(d);
 <h1 class="title">Module <code>tofurengo.glyph_normalizer</code></h1>
 </header>
 <section id="section-intro">
-<p>Glyph Tag normalization models and processing engine for the tofurengo library.</p>
+<p>GlyphTag normalization models and processing engine for the tofurengo library.</p>
 <p>This module provides data models for tracking normalization results (<code><a title="tofurengo.glyph_normalizer.NormalizeResult" href="#tofurengo.glyph_normalizer.NormalizeResult">NormalizeResult</a></code>)
-and the <code><a title="tofurengo.glyph_normalizer.GlyphNormalizer" href="#tofurengo.glyph_normalizer.GlyphNormalizer">GlyphNormalizer</a></code> class, which handles the normalization phase of Glyph Tags
+and the <code><a title="tofurengo.glyph_normalizer.GlyphNormalizer" href="#tofurengo.glyph_normalizer.GlyphNormalizer">GlyphNormalizer</a></code> class, which handles the normalization phase of GlyphTags
 using a delegated callback function (<code>ReplaceFn</code>).</p>
 </section>
 <section>
@@ -61,7 +61,7 @@ using a delegated callback function (<code>ReplaceFn</code>).</p>
 </summary>
 <pre><code class="python">class GlyphNormalizer:
     &#34;&#34;&#34;
-    Stateless normalization engine for processing text containing Glyph Tags.
+    Stateless normalization engine for processing text containing GlyphTags.
 
     Delegates tag lookup and attribute reconstruction details to a `ReplaceFn` callback.
     The `replace_fn` can be provided either during initialization or dynamically
@@ -85,11 +85,11 @@ using a delegated callback function (<code>ReplaceFn</code>).</p>
         &#34;&#34;&#34;
         Execute normalization on the input text.
 
-        Replaces Glyph Tags with their canonical attributes while preserving
+        Replaces GlyphTags with their canonical attributes while preserving
         the opening escape tokens (`{{`).
 
         Args:
-            text (str): Input text containing Glyph Tags.
+            text (str): Input text containing GlyphTags.
             replace_fn (Optional[ReplaceFn]): Replacement callback to use for this call.
                 Overrides instance `self.replace_fn` if provided.
 
@@ -124,7 +124,7 @@ using a delegated callback function (<code>ReplaceFn</code>).</p>
             issues=issues,
         )</code></pre>
 </details>
-<div class="desc"><p>Stateless normalization engine for processing text containing Glyph Tags.</p>
+<div class="desc"><p>Stateless normalization engine for processing text containing GlyphTags.</p>
 <p>Delegates tag lookup and attribute reconstruction details to a <code>ReplaceFn</code> callback.
 The <code>replace_fn</code> can be provided either during initialization or dynamically
 during the <code>normalize()</code> method call.</p>
@@ -153,11 +153,11 @@ during the <code>normalize()</code> method call.</p>
     &#34;&#34;&#34;
     Execute normalization on the input text.
 
-    Replaces Glyph Tags with their canonical attributes while preserving
+    Replaces GlyphTags with their canonical attributes while preserving
     the opening escape tokens (`{{`).
 
     Args:
-        text (str): Input text containing Glyph Tags.
+        text (str): Input text containing GlyphTags.
         replace_fn (Optional[ReplaceFn]): Replacement callback to use for this call.
             Overrides instance `self.replace_fn` if provided.
 
@@ -193,13 +193,13 @@ during the <code>normalize()</code> method call.</p>
     )</code></pre>
 </details>
 <div class="desc"><p>Execute normalization on the input text.</p>
-<p>Replaces Glyph Tags with their canonical attributes while preserving
+<p>Replaces GlyphTags with their canonical attributes while preserving
 the opening escape tokens (<code>{{</code>).</p>
 <dl>
 <dt>Args</dt>
 <dt>-----=</dt>
 <dt><strong><code>text</code></strong> :&ensp;<code>str</code></dt>
-<dd>Input text containing Glyph Tags.</dd>
+<dd>Input text containing GlyphTags.</dd>
 <dt><strong><code>replace_fn</code></strong> :&ensp;<code>Optional[ReplaceFn]</code></dt>
 <dd>Replacement callback to use for this call.
 Overrides instance <code>self.replace_fn</code> if provided.</dd>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <meta name="generator" content="pdoc3 0.11.6">
 <title>tofurengo.glyph_simplifier API documentation</title>
-<meta name="description" content="Glyph Tag simplifier module for the tofurengo library …">
+<meta name="description" content="GlyphTag simplifier module for the tofurengo library …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
@@ -36,8 +36,8 @@ el.replaceWith(d);
 <h1 class="title">Module <code>tofurengo.glyph_simplifier</code></h1>
 </header>
 <section id="section-intro">
-<p>Glyph Tag simplifier module for the tofurengo library.</p>
-<p>This module provides the <code><a title="tofurengo.glyph_simplifier.GlyphSimplifier" href="#tofurengo.glyph_simplifier.GlyphSimplifier">GlyphSimplifier</a></code> class, which simplifies Glyph Tags
+<p>GlyphTag simplifier module for the tofurengo library.</p>
+<p>This module provides the <code><a title="tofurengo.glyph_simplifier.GlyphSimplifier" href="#tofurengo.glyph_simplifier.GlyphSimplifier">GlyphSimplifier</a></code> class, which simplifies GlyphTags
 in text by stripping all attributes and reducing tags to their base <code>{&lt;glyph-name&gt;}</code> format.</p>
 </section>
 <section>
@@ -58,9 +58,9 @@ in text by stripping all attributes and reducing tags to their base <code>{&lt;g
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class GlyphSimplifier:
-    &#34;&#34;&#34;Simplification engine for stripping attributes from Glyph Tags.
+    &#34;&#34;&#34;Simplification engine for stripping attributes from GlyphTags.
 
-    Converts Glyph Tags containing attributes (such as `b=`, `v=`, or `set=`)
+    Converts GlyphTags containing attributes (such as `b=`, `v=`, or `set=`)
     back into their simplified `{&lt;glyph-name&gt;}` representation.
     &#34;&#34;&#34;
 
@@ -69,10 +69,10 @@ in text by stripping all attributes and reducing tags to their base <code>{&lt;g
         pass
 
     def simplify(self, text: str) -&gt; str:
-        &#34;&#34;&#34;Simplify Glyph Tags in the input text by stripping all attributes.
+        &#34;&#34;&#34;Simplify GlyphTags in the input text by stripping all attributes.
 
         Args:
-            text (str): Input text containing Glyph Tags.
+            text (str): Input text containing GlyphTags.
 
         Returns:
             str: Simplified output text with `{&lt;glyph-name&gt;}` format tags.
@@ -90,8 +90,8 @@ in text by stripping all attributes and reducing tags to their base <code>{&lt;g
             unescape=False,  # Retain &#39;{{&#39; escape sequences during simplification
         )</code></pre>
 </details>
-<div class="desc"><p>Simplification engine for stripping attributes from Glyph Tags.</p>
-<p>Converts Glyph Tags containing attributes (such as <code>b=</code>, <code>v=</code>, or <code>set=</code>)
+<div class="desc"><p>Simplification engine for stripping attributes from GlyphTags.</p>
+<p>Converts GlyphTags containing attributes (such as <code>b=</code>, <code>v=</code>, or <code>set=</code>)
 back into their simplified <code>{&lt;glyph-name&gt;}</code> representation.</p>
 <p>Initialize the GlyphSimplifier.</p></div>
 <h3>Methods</h3>
@@ -105,10 +105,10 @@ back into their simplified <code>{&lt;glyph-name&gt;}</code> representation.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def simplify(self, text: str) -&gt; str:
-    &#34;&#34;&#34;Simplify Glyph Tags in the input text by stripping all attributes.
+    &#34;&#34;&#34;Simplify GlyphTags in the input text by stripping all attributes.
 
     Args:
-        text (str): Input text containing Glyph Tags.
+        text (str): Input text containing GlyphTags.
 
     Returns:
         str: Simplified output text with `{&lt;glyph-name&gt;}` format tags.
@@ -126,12 +126,12 @@ back into their simplified <code>{&lt;glyph-name&gt;}</code> representation.</p>
         unescape=False,  # Retain &#39;{{&#39; escape sequences during simplification
     )</code></pre>
 </details>
-<div class="desc"><p>Simplify Glyph Tags in the input text by stripping all attributes.</p>
+<div class="desc"><p>Simplify GlyphTags in the input text by stripping all attributes.</p>
 <dl>
 <dt>Args</dt>
 <dt>-----=</dt>
 <dt><strong><code>text</code></strong> :&ensp;<code>str</code></dt>
-<dd>Input text containing Glyph Tags.</dd>
+<dd>Input text containing GlyphTags.</dd>
 <dt>Returns</dt>
 <dt>-----=</dt>
 <dt><code>str</code></dt>
