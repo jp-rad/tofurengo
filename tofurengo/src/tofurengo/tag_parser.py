@@ -70,7 +70,7 @@ class TagIssue:
 @dataclass
 class ParsedTag:
     """
-    Structured representation of a parsed glyph tag's contents.
+    Structured representation of a parsed GlyphTag's contents.
 
     Attributes:
         glyph_name (str): The primary glyph identifier (e.g., 'MJ000001').

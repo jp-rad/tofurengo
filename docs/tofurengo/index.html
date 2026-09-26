@@ -40,23 +40,23 @@ el.replaceWith(d);
 <section>
 <h2 class="section-title" id="header-readme">README</h2>
 <h1 id="tofurengo">tofurengo</h1>
-<p><strong>tofurengo</strong> is a Python toolkit that provides a unified "Glyph Tag" abstraction layer for handling large-scale Japanese glyph systems, such as <strong>MJ</strong> (using <code>MJxxxxxx</code> glyph tags) and <strong>MJ+</strong> (which extends MJ by adding administrative glyphs tagged as <code>GJxxxxxx</code>). Both systems are widely used in Japanese government and public sector applications.</p>
+<p><strong>tofurengo</strong> is a Python toolkit that provides a unified "GlyphTag" abstraction layer for handling large-scale Japanese glyph systems, such as <strong>MJ</strong> (using <code>MJxxxxxx</code> GlyphTags) and <strong>MJ+</strong> (which extends MJ by adding administrative glyphs tagged as <code>GJxxxxxx</code>). Both systems are widely used in Japanese government and public sector applications.</p>
 <h3 id="problem-key-objective">Problem &amp; Key Objective</h3>
 <p>Traditionally, many Japanese personal names and place names containing variant kanji relied on proprietary custom characters (<strong>Gaiji</strong>). When exchanging data between different systems, Gaiji leads to corrupted text and a loss of precise glyph information.</p>
-<p><strong>tofurengo</strong> enables system compliance with Japan's Moji Joho Kiban (Character Information Infrastructure) and the Unicode IVS international standard. By representing glyphs through standard Glyph Tags (<code>MJxxxxxx</code> / <code>GJxxxxxx</code>), it eliminates reliance on Gaiji and ensures accurate, lossless glyph data exchange across systems.</p>
+<p><strong>tofurengo</strong> enables system compliance with Japan's Moji Joho Kiban (Character Information Infrastructure) and the Unicode IVS international standard. By representing glyphs through standard GlyphTags (<code>MJxxxxxx</code> / <code>GJxxxxxx</code>), it eliminates reliance on Gaiji and ensures accurate, lossless glyph data exchange across systems.</p>
 <h3 id="resources-links">Resources &amp; Links</h3>
 <ul>
 <li><a href="https://github.com/jp-rad/tofurengo">GitHub Repository (<code>jp-rad/tofurengo</code>)</a></li>
-<li><a href="https://jp-rad.github.io/tofurengo/specification.ja.html">Glyph Tag Specification (Japanese)</a> -
-For detailed rules, formats, and normalization behavior of Glyph Tags,
-please refer to the "Glyph Tag Specification". The specification is
+<li><a href="https://jp-rad.github.io/tofurengo/specification.ja.html">GlyphTag Specification (Japanese)</a> -
+For detailed rules, formats, and normalization behavior of GlyphTags,
+please refer to the "GlyphTag Specification". The specification is
 written in Japanese only.</li>
 </ul>
 <h2 id="features">Features</h2>
 <ul>
 <li>
-<p><strong>Unified Glyph Abstraction (Glyph Tag)</strong><br>
-Handles diverse representations (<code>glyph-name</code> like <code>MJxxxxxx</code>/<code>GJxxxxxx</code>, <code>UCSSeq</code>, and <code>IVS</code>) in a single, standard Glyph Tag format.</p>
+<p><strong>Unified Glyph Abstraction (GlyphTag)</strong><br>
+Handles diverse representations (<code>glyph-name</code> like <code>MJxxxxxx</code>/<code>GJxxxxxx</code>, <code>UCSSeq</code>, and <code>IVS</code>) in a single, standard GlyphTag format.</p>
 </li>
 <li>
 <p><strong>Lossless Data Exchange Across Environments</strong><br>
@@ -170,11 +170,11 @@ pip3 uninstall -y \
 
 </code></pre>
 <h2 id="usage-example">Usage Example</h2>
-<p>The following example demonstrates how to build a <code>GlyphNormalizer</code> and <code>GlyphRenderer</code>, normalize Hentaigana (variant kana) Glyph Tags in text, and render them into plain Unicode characters.</p>
+<p>The following example demonstrates how to build a <code>GlyphNormalizer</code> and <code>GlyphRenderer</code>, normalize Hentaigana (variant kana) GlyphTags in text, and render them into plain Unicode characters.</p>
 <pre><code class="language-python">
 from tofurengo.builder import build_normalizer, build_renderer
 
-# Input text containing an MJ Hentaigana Glyph Tag (An-no-A)
+# Input text containing an MJ Hentaigana GlyphTag (An-no-A)
 text = &quot;'{MJ090001}'&quot;
 
 # ------------------------------------------------------------
@@ -187,7 +187,7 @@ normalizer = build_normalizer(&quot;mj&quot;, &quot;6.02.201&quot;)
 renderer = build_renderer(use_base=False, tofu=&quot;U+25A1&quot;)
 
 # ------------------------------------------------------------
-# 2. Normalize Glyph Tags
+# 2. Normalize GlyphTags
 # ------------------------------------------------------------
 normalized = normalizer.normalize(text)
 print(normalized.text)
@@ -244,23 +244,23 @@ print(rendered_esc)
 </dd>
 <dt><code class="name"><a title="tofurengo.glyph_inverse_renderer" href="glyph_inverse_renderer.html">tofurengo.glyph_inverse_renderer</a></code></dt>
 <dd>
-<div class="desc"><p>Inverse Glyph Tag renderer module for the tofurengo library …</p></div>
+<div class="desc"><p>Inverse GlyphTag renderer module for the tofurengo library …</p></div>
 </dd>
 <dt><code class="name"><a title="tofurengo.glyph_normalizer" href="glyph_normalizer.html">tofurengo.glyph_normalizer</a></code></dt>
 <dd>
-<div class="desc"><p>Glyph Tag normalization models and processing engine for the tofurengo library …</p></div>
+<div class="desc"><p>GlyphTag normalization models and processing engine for the tofurengo library …</p></div>
 </dd>
 <dt><code class="name"><a title="tofurengo.glyph_renderer" href="glyph_renderer.html">tofurengo.glyph_renderer</a></code></dt>
 <dd>
-<div class="desc"><p>Glyph Tag renderer module for the tofurengo library …</p></div>
+<div class="desc"><p>GlyphTag renderer module for the tofurengo library …</p></div>
 </dd>
 <dt><code class="name"><a title="tofurengo.glyph_simplifier" href="glyph_simplifier.html">tofurengo.glyph_simplifier</a></code></dt>
 <dd>
-<div class="desc"><p>Glyph Tag simplifier module for the tofurengo library …</p></div>
+<div class="desc"><p>GlyphTag simplifier module for the tofurengo library …</p></div>
 </dd>
 <dt><code class="name"><a title="tofurengo.replacer" href="replacer.html">tofurengo.replacer</a></code></dt>
 <dd>
-<div class="desc"><p>Replacer and normalization closures for glyph tags …</p></div>
+<div class="desc"><p>Replacer and normalization closures for GlyphTags …</p></div>
 </dd>
 <dt><code class="name"><a title="tofurengo.resource" href="resource.html">tofurengo.resource</a></code></dt>
 <dd>

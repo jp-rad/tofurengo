@@ -1,9 +1,9 @@
 """
-Inverse Glyph Tag renderer module for the tofurengo library.
+Inverse GlyphTag renderer module for the tofurengo library.
 
 This module provides the `GlyphInverseRenderer` class, which performs the
 reverse operation of `GlyphRenderer`. It converts Unicode text into
-normalized Glyph Tags, applying brace escaping and customizable glyph
+normalized GlyphTags, applying brace escaping and customizable glyph
 conversion logic.
 
 This version uses Unicode grapheme cluster segmentation so that characters
@@ -44,7 +44,7 @@ class GlyphConverter(Protocol):
 class GlyphInverseRenderer:
     """
     Inverse rendering engine for converting Unicode grapheme clusters into
-    normalized Glyph Tags.
+    normalized GlyphTags.
 
     This class performs the conceptual reverse of `GlyphRenderer.render()`,
     scanning text grapheme-by-grapheme and converting eligible clusters
@@ -112,7 +112,7 @@ class GlyphInverseRenderer:
             text (str): Input Unicode string.
 
         Returns:
-            str: Output string containing normalized Glyph Tags.
+            str: Output string containing normalized GlyphTags.
         """
         out: list[str] = []
 

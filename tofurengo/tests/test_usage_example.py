@@ -6,7 +6,7 @@ def test_usage_example():
     print("=== Usage Example ===")
 
 
-    # Input text containing an MJ Hentaigana Glyph Tag (An-no-A)
+    # Input text containing an MJ Hentaigana GlyphTag (An-no-A)
     text = "'{MJ090001}'"
 
     # ------------------------------------------------------------
@@ -19,7 +19,7 @@ def test_usage_example():
     renderer = build_renderer(use_base=False, tofu="U+25A1")
 
     # ------------------------------------------------------------
-    # 2. Normalize Glyph Tags
+    # 2. Normalize GlyphTags
     # ------------------------------------------------------------
     normalized = normalizer.normalize(text)
     print(normalized.text)
