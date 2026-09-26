@@ -87,7 +87,7 @@ def build_renderer(
     """
     Build a `GlyphRenderer` instance with specified fallback and mapping preferences.
 
-    The renderer resolves normalized Glyph Tags into Unicode characters based on base (`b=`) or variant (`v=`) attributes.
+    The renderer resolves normalized GlyphTags into Unicode characters based on base (`b=`) or variant (`v=`) attributes.
 
     Args:
         use_base: If `True`, prioritizes base UCS attributes (`b=`) over variant attributes (`v=`). Defaults to `False`.

@@ -1,7 +1,7 @@
 /**
- * Glyph Tag renderer module for the tofurengo library.
+ * GlyphTag renderer module for the tofurengo library.
  *
- * Provides the `GlyphRenderer` class, which converts normalized Glyph Tags
+ * Provides the `GlyphRenderer` class, which converts normalized GlyphTags
  * into resolved Unicode character strings or fallback placeholder representations (tofu).
  */
 
@@ -38,7 +38,7 @@ export function ucsToGlyph(ucsSequence) {
 }
 
 /**
- * Rendering engine for resolving normalized Glyph Tags into Unicode strings.
+ * Rendering engine for resolving normalized GlyphTags into Unicode strings.
  *
  * Converts tags containing base (`b=`) or variant (`v=`) UCS attributes into
  * actual characters. If specified glyph sequences cannot be resolved, a fallback
@@ -64,10 +64,10 @@ export class GlyphRenderer {
   /**
    * Render normalized text into a final Unicode string.
    *
-   * Resolves Glyph Tags to characters based on prioritization rules and
+   * Resolves GlyphTags to characters based on prioritization rules and
    * unescapes double-brace sequences (`{{`) into literal single braces (`{`).
    *
-   * @param {string} text - Normalized input text containing Glyph Tags.
+   * @param {string} text - Normalized input text containing GlyphTags.
    * @param {boolean|null} [useBase=null] - Temporarily override the instance `useBase` preference.
    * @param {string|null} [tofu=null] - Temporarily override the instance `tofu` fallback string.
    * @returns {string} Rendered output text with resolved Unicode characters and unescaped braces.

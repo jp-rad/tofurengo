@@ -1,8 +1,8 @@
 """
-Glyph Tag normalization models and processing engine for the tofurengo library.
+GlyphTag normalization models and processing engine for the tofurengo library.
 
 This module provides data models for tracking normalization results (`NormalizeResult`)
-and the `GlyphNormalizer` class, which handles the normalization phase of Glyph Tags
+and the `GlyphNormalizer` class, which handles the normalization phase of GlyphTags
 using a delegated callback function (`ReplaceFn`).
 """
 
@@ -64,7 +64,7 @@ class NormalizeResult:
 
 class GlyphNormalizer:
     """
-    Stateless normalization engine for processing text containing Glyph Tags.
+    Stateless normalization engine for processing text containing GlyphTags.
 
     Delegates tag lookup and attribute reconstruction details to a `ReplaceFn` callback.
     The `replace_fn` can be provided either during initialization or dynamically
@@ -88,11 +88,11 @@ class GlyphNormalizer:
         """
         Execute normalization on the input text.
 
-        Replaces Glyph Tags with their canonical attributes while preserving
+        Replaces GlyphTags with their canonical attributes while preserving
         the opening escape tokens (`{{`).
 
         Args:
-            text (str): Input text containing Glyph Tags.
+            text (str): Input text containing GlyphTags.
             replace_fn (Optional[ReplaceFn]): Replacement callback to use for this call.
                 Overrides instance `self.replace_fn` if provided.
 

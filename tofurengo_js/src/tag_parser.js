@@ -51,7 +51,7 @@ export class TagIssue {
 }
 
 /**
- * Structured representation of a parsed glyph tag's contents.
+ * Structured representation of a parsed GlyphTag's contents.
  */
 export class ParsedTag {
   /**

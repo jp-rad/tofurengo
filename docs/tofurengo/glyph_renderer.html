@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <meta name="generator" content="pdoc3 0.11.6">
 <title>tofurengo.glyph_renderer API documentation</title>
-<meta name="description" content="Glyph Tag renderer module for the tofurengo library …">
+<meta name="description" content="GlyphTag renderer module for the tofurengo library …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
@@ -36,8 +36,8 @@ el.replaceWith(d);
 <h1 class="title">Module <code>tofurengo.glyph_renderer</code></h1>
 </header>
 <section id="section-intro">
-<p>Glyph Tag renderer module for the tofurengo library.</p>
-<p>This module provides the <code><a title="tofurengo.glyph_renderer.GlyphRenderer" href="#tofurengo.glyph_renderer.GlyphRenderer">GlyphRenderer</a></code> class, which converts normalized Glyph Tags
+<p>GlyphTag renderer module for the tofurengo library.</p>
+<p>This module provides the <code><a title="tofurengo.glyph_renderer.GlyphRenderer" href="#tofurengo.glyph_renderer.GlyphRenderer">GlyphRenderer</a></code> class, which converts normalized GlyphTags
 into resolved Unicode character strings or fallback placeholder representations (tofu).</p>
 </section>
 <section>
@@ -60,7 +60,7 @@ into resolved Unicode character strings or fallback placeholder representations 
 </summary>
 <pre><code class="python">class GlyphRenderer:
     &#34;&#34;&#34;
-    Rendering engine for resolving normalized Glyph Tags into Unicode strings.
+    Rendering engine for resolving normalized GlyphTags into Unicode strings.
 
     Converts tags containing base (`b=`) or variant (`v=`) UCS attributes into
     actual characters. If specified glyph sequences cannot be resolved, a fallback
@@ -93,11 +93,11 @@ into resolved Unicode character strings or fallback placeholder representations 
         &#34;&#34;&#34;
         Render normalized text into a final Unicode string.
 
-        Resolves Glyph Tags to characters based on prioritization rules and
+        Resolves GlyphTags to characters based on prioritization rules and
         unescapes double-brace sequences (`{{`) into literal single braces (`{`).
 
         Args:
-            text (str): Normalized input text containing Glyph Tags.
+            text (str): Normalized input text containing GlyphTags.
             use_base (Optional[bool]): Temporarily override the instance `use_base` preference.
             tofu (Optional[str]): Temporarily override the instance `tofu` fallback string.
 
@@ -121,7 +121,7 @@ into resolved Unicode character strings or fallback placeholder representations 
         # Execute processing pipeline with unescaping enabled (unescape=True)
         return TagParser.process_pipeline(text, _render_tag, unescape=True)</code></pre>
 </details>
-<div class="desc"><p>Rendering engine for resolving normalized Glyph Tags into Unicode strings.</p>
+<div class="desc"><p>Rendering engine for resolving normalized GlyphTags into Unicode strings.</p>
 <p>Converts tags containing base (<code>b=</code>) or variant (<code>v=</code>) UCS attributes into
 actual characters. If specified glyph sequences cannot be resolved, a fallback
 string (tofu) is rendered instead.</p>
@@ -155,11 +155,11 @@ cannot be resolved. Defaults to "U+25A1" (White Square □).</dd>
     &#34;&#34;&#34;
     Render normalized text into a final Unicode string.
 
-    Resolves Glyph Tags to characters based on prioritization rules and
+    Resolves GlyphTags to characters based on prioritization rules and
     unescapes double-brace sequences (`{{`) into literal single braces (`{`).
 
     Args:
-        text (str): Normalized input text containing Glyph Tags.
+        text (str): Normalized input text containing GlyphTags.
         use_base (Optional[bool]): Temporarily override the instance `use_base` preference.
         tofu (Optional[str]): Temporarily override the instance `tofu` fallback string.
 
@@ -184,13 +184,13 @@ cannot be resolved. Defaults to "U+25A1" (White Square □).</dd>
     return TagParser.process_pipeline(text, _render_tag, unescape=True)</code></pre>
 </details>
 <div class="desc"><p>Render normalized text into a final Unicode string.</p>
-<p>Resolves Glyph Tags to characters based on prioritization rules and
+<p>Resolves GlyphTags to characters based on prioritization rules and
 unescapes double-brace sequences (<code>{{</code>) into literal single braces (<code>{</code>).</p>
 <dl>
 <dt>Args</dt>
 <dt>-----=</dt>
 <dt><strong><code>text</code></strong> :&ensp;<code>str</code></dt>
-<dd>Normalized input text containing Glyph Tags.</dd>
+<dd>Normalized input text containing GlyphTags.</dd>
 <dt><strong><code>use_base</code></strong> :&ensp;<code>Optional[bool]</code></dt>
 <dd>Temporarily override the instance <code>use_base</code> preference.</dd>
 <dt><strong><code>tofu</code></strong> :&ensp;<code>Optional[str]</code></dt>

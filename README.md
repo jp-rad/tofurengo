@@ -1,26 +1,26 @@
 # tofurengo
 
-**tofurengo** is a Python toolkit that provides a unified "Glyph Tag" abstraction layer for handling large-scale Japanese glyph systems, such as **MJ** (using `MJxxxxxx` glyph tags) and **MJ+** (which extends MJ by adding administrative glyphs tagged as `GJxxxxxx`). Both systems are widely used in Japanese government and public sector applications.
+**tofurengo** is a Python toolkit that provides a unified "GlyphTag" abstraction layer for handling large-scale Japanese glyph systems, such as **MJ** (using `MJxxxxxx` GlyphTags) and **MJ+** (which extends MJ by adding administrative glyphs tagged as `GJxxxxxx`). Both systems are widely used in Japanese government and public sector applications.
 
 ### Problem & Key Objective
 Traditionally, many Japanese personal names and place names containing variant kanji relied on proprietary custom characters (**Gaiji**). When exchanging data between different systems, Gaiji leads to corrupted text and a loss of precise glyph information.
 
-**tofurengo** enables system compliance with Japan's Moji Joho Kiban (Character Information Infrastructure) and the Unicode IVS international standard. By representing glyphs through standard Glyph Tags (`MJxxxxxx` / `GJxxxxxx`), it eliminates reliance on Gaiji and ensures accurate, lossless glyph data exchange across systems.
+**tofurengo** enables system compliance with Japan's Moji Joho Kiban (Character Information Infrastructure) and the Unicode IVS international standard. By representing glyphs through standard GlyphTags (`MJxxxxxx` / `GJxxxxxx`), it eliminates reliance on Gaiji and ensures accurate, lossless glyph data exchange across systems.
 
 
 ### Resources & Links
 
 * [GitHub Repository (`jp-rad/tofurengo`)](https://github.com/jp-rad/tofurengo)
-* [Glyph Tag Specification (Japanese)](https://jp-rad.github.io/tofurengo/specification.ja.html) - 
-For detailed rules, formats, and normalization behavior of Glyph Tags,
-please refer to the "Glyph Tag Specification". The specification is
+* [GlyphTag Specification (Japanese)](https://jp-rad.github.io/tofurengo/specification.ja.html) - 
+For detailed rules, formats, and normalization behavior of GlyphTags,
+please refer to the "GlyphTag Specification". The specification is
 written in Japanese only.
 
 
 ## Features
 
-- **Unified Glyph Abstraction (Glyph Tag)**  
-  Handles diverse representations (`glyph-name` like `MJxxxxxx`/`GJxxxxxx`, `UCSSeq`, and `IVS`) in a single, standard Glyph Tag format.
+- **Unified Glyph Abstraction (GlyphTag)**  
+  Handles diverse representations (`glyph-name` like `MJxxxxxx`/`GJxxxxxx`, `UCSSeq`, and `IVS`) in a single, standard GlyphTag format.
 
 - **Lossless Data Exchange Across Environments**  
   Ensures reliable glyph management and exchange even in systems or environments that do not natively support IVS/VDS, eliminating character corruption.
@@ -132,13 +132,13 @@ pip3 uninstall -y \
 
 ## Usage Example
 
-The following example demonstrates how to build a `GlyphNormalizer` and `GlyphRenderer`, normalize Hentaigana (variant kana) Glyph Tags in text, and render them into plain Unicode characters.
+The following example demonstrates how to build a `GlyphNormalizer` and `GlyphRenderer`, normalize Hentaigana (variant kana) GlyphTags in text, and render them into plain Unicode characters.
 
 ```python
 
 from tofurengo.builder import build_normalizer, build_renderer
 
-# Input text containing an MJ Hentaigana Glyph Tag (An-no-A)
+# Input text containing an MJ Hentaigana GlyphTag (An-no-A)
 text = "'{MJ090001}'"
 
 # ------------------------------------------------------------
@@ -151,7 +151,7 @@ normalizer = build_normalizer("mj", "6.02.201")
 renderer = build_renderer(use_base=False, tofu="U+25A1")
 
 # ------------------------------------------------------------
-# 2. Normalize Glyph Tags
+# 2. Normalize GlyphTags
 # ------------------------------------------------------------
 normalized = normalizer.normalize(text)
 print(normalized.text)
