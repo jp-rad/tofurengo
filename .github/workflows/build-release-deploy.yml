@@ -1,0 +1,215 @@
+name: Build, Release and Deploy
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-release-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.git_ref || github.ref }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+
+      - name: Install tools
+        run: |
+          pip install --upgrade pip
+          pip install build hatchling markdown
+
+      # --------------------------------------------------------- #
+      # 1. Build all packages
+      # --------------------------------------------------------- #
+      - name: Build tofurengo
+        run: python -m build
+        working-directory: tofurengo
+
+      - name: Build tofurengo-data-mj-v6-02-201
+        run: python -m build
+        working-directory: glyph/mj_v6_02_201
+
+      - name: Build tofurengo-data-mj-v6-02-201-onka
+        run: python -m build
+        working-directory: glyph/mj_v6_02_201_onka
+
+      - name: Build tofurengo-data-mj-plus-v4-10
+        run: python -m build
+        working-directory: glyph/mj_plus_v4_10
+
+      - name: Build tofurengo-data-mj-plusx-v1-20
+        run: python -m build
+        working-directory: glyph/mj_plusx_v1_20
+
+      - name: Build tofurengo_js
+        run: |
+          npm install
+          npm run build
+        working-directory: tofurengo_js
+
+      # --------------------------------------------------------- #
+      # 2. Collect wheels and release assets
+      # --------------------------------------------------------- #
+      - name: Collect wheels
+        run: |
+          mkdir -p docs/wheels
+          cp tofurengo/dist/*.whl docs/wheels/
+          cp glyph/mj_v6_02_201/dist/*.whl docs/wheels/
+          cp glyph/mj_v6_02_201_onka/dist/*.whl docs/wheels/
+          cp glyph/mj_plus_v4_10/dist/*.whl docs/wheels/
+          cp glyph/mj_plusx_v1_20/dist/*.whl docs/wheels/
+
+      - name: Collect release assets
+        run: |
+          mkdir -p release_assets
+          # Compress all wheels into zip and tar.gz archives
+          zip -j release_assets/tofurengo-wheels.zip docs/wheels/*.whl
+          tar -czvf release_assets/tofurengo-wheels.tar.gz -C docs/wheels .
+          cp tofurengo_js/dist/tofurengo.min.js release_assets/
+
+      # --------------------------------------------------------- #
+      # 3. Create GitHub Release and Upload Assets
+      # --------------------------------------------------------- #
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release_assets/*
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # --------------------------------------------------------- #
+      # 4. Generate PEP503 index (Package names with hyphens)
+      # --------------------------------------------------------- #
+      - name: Create PEP503 index
+        run: |
+          mkdir -p docs/simple
+          # Initialize root simple index
+          echo '<!DOCTYPE html><html><body>' > docs/simple/index.html
+
+          for whl in docs/wheels/*.whl; do
+            [ -e "$whl" ] || continue
+            fname=$(basename "$whl")
+            pkg_raw=$(echo "$fname" | cut -d'-' -f1)
+            pkg_norm=$(echo "$pkg_raw" | tr '_' '-')
+
+            mkdir -p docs/simple/$pkg_norm
+
+            # Package detail index
+            {
+              echo '<!DOCTYPE html>'
+              echo '<html>'
+              echo '  <body>'
+              echo "    <a href=\"../../wheels/$fname\">$fname</a>"
+              echo '  </body>'
+              echo '</html>'
+            } > docs/simple/$pkg_norm/index.html
+
+            # Append to root simple index
+            echo "    <a href=\"$pkg_norm/\">$pkg_norm</a><br/>" >> docs/simple/index.html
+          done
+
+          echo '  </body></html>' >> docs/simple/index.html
+
+      # --------------------------------------------------------- #
+      # 5. Convert GLYPHTAG-SPECS.ja.md to GitHub Styled HTML
+      # --------------------------------------------------------- #
+      - name: Convert Specification Markdown to HTML
+        run: |
+          mkdir -p docs
+          # Convert Markdown to HTML body with markdown extensions enabled
+          python -m markdown -x extra -x codehilite GLYPHTAG-SPECS.ja.md > docs/spec_body.html
+
+          # Assemble HTML file using GitHub default CSS template (github-markdown-css)
+          cat << 'EOF' > docs/specification.ja.html
+          <!DOCTYPE html>
+          <html lang="ja">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>GlyphTag Specification (Japanese)</title>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.9.0/github-markdown.min.css">
+            <style>
+              .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+              }
+              @media (max-width: 767px) {
+                .markdown-body {
+                  padding: 15px;
+                }
+              }
+            </style>
+          </head>
+          <body class="markdown-body">
+          EOF
+          cat docs/spec_body.html >> docs/specification.ja.html
+          echo '</body></html>' >> docs/specification.ja.html
+
+          # Clean up temporary body file
+          rm docs/spec_body.html
+
+      # --------------------------------------------------------- #
+      # 6. Copy pre-generated pdoc HTML files directly to docs/
+      # --------------------------------------------------------- #
+      - name: Copy tofurengo docs directly to docs/
+        run: |
+          mkdir -p docs
+          cp -r docs/tofurengo/* docs/
+
+      # --------------------------------------------------------- #
+      # 7. Deploy to GitHub Pages
+      # --------------------------------------------------------- #
+      - name: Check GitHub Pages status
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: token $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages")
+          if [ "$STATUS_CODE" -ne 200 ]; then
+            echo "[ERROR] GitHub Pages is not enabled. Go to Settings > Pages and set Source to 'GitHub Actions'."
+            exit 1
+          fi
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: Create Pages Archive
+        run: |
+          tar --dereference --hard-dereference -cvf artifact.tar -C docs .
+
+      - name: Upload Pages artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: github-pages
+          path: artifact.tar
+          retention-days: 1
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
