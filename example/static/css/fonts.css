@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "DWPIMincho";
+    src: url("/static/fonts/DWPIMincho.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "DWPIexMincho";
+    src: url("/static/fonts/DWPIexMincho.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "IPAmjMincho";
+    src: url("/static/fonts/ipamjm.ttf") format("truetype");
+}
