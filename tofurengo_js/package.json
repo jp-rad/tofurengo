@@ -1,0 +1,31 @@
+{
+  "name": "tofurengo_js",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/tofurengo.global.js",
+  "module": "./dist/tofurengo.bundle.js",
+  "exports": {
+    ".": {
+      "import": "./dist/tofurengo.bundle.js",
+      "require": "./dist/tofurengo.global.js"
+    },
+    "./min": "./dist/tofurengo.min.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run build:bundle && npm run build:min && npm run build:global",
+    "build:bundle": "esbuild src/index.js --bundle --format=esm --outfile=dist/tofurengo.bundle.js",
+    "build:min": "esbuild src/index.js --bundle --minify --format=esm --outfile=dist/tofurengo.min.js",
+    "build:global": "esbuild src/index.js --bundle --format=iife --global-name=Tofurengo --outfile=dist/tofurengo.global.js",
+    "prepublishOnly": "npm run build",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "esbuild": "^0.20.0",
+    "jsdom": "^24.0.0",
+    "vitest": "^1.0.0"
+  },
+  "license": "MIT"
+}
