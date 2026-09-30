@@ -1,21 +1,107 @@
-MIT License
+tofurengo-data-mj-plus-v4-10 License
 
-Copyright (c) 2026 jp-rad
+This library "tofurengo-data-mj-plus-v4-10" (hereinafter referred to as "this Library") is a derivative work/library created by using the attribute dictionary, data, or related components contained in "deluxe文字選択DWPI明朝4.1版" created and distributed by DWPI, 一般社団法人デジタル広域推進機構.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+[IMPORTANT NOTICE: POSITIONING OF THIS LIBRARY]
+This Library is NOT a replacement, substitute, or alternative for the original program or data of "deluxe文字選択DWPI明朝4.1版". This Library does not provide the original software functionality or the font data itself, but serves as a complementary/helper library for referencing, searching, and utilizing the relevant data from external programming environments (such as Python).
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+By using, copying, modifying, or redistributing this Library, you are deemed to have accepted all terms and conditions of this License (including the attached Original License at the end of this document).
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+--------------------------------------------------------------------------------
+Article 1 (Grant of License)
+1. Users may install and use this Library in any environment for both commercial and non-commercial purposes.
+2. Users may freely use, copy, and publicly transmit any content, deliverables, printed materials, or digital data generated using this Library for both commercial and non-commercial purposes.
+3. Users may redistribute this Library as-is, or as a modified derivative library, for both commercial and non-commercial purposes, provided that they comply with the terms of this License.
+
+Article 2 (Restrictions on Redistribution and Derivative Works)
+When redistributing this Library or any derivative work created based on this Library, all of the following conditions must be satisfied:
+
+1. [Name Restrictions]
+   The name of this Library or any derivative work must NOT be identical to, or contain, the name "deluxe文字選択DWPI明朝".
+
+2. [Inheritance of License]
+   This Library and its derivative works must be licensed under the same terms and conditions as this License (or modified/newer versions of this License designated by DWPI).
+
+3. [Provision of Replacement Means to the Original]
+   A method or instructions (such as explanation of data structures, replacement procedures, scripts, or guidance on where to obtain the original data) must be provided so that recipients can replace the data in this Library with the original data from "deluxe文字選択DWPI明朝4.1版".
+
+4. [Inclusion of License Notice]
+   When redistributing this Library, a copy of this License (including this LICENSE file and the full text of the attached Original License) must be included.
+
+Article 3 (Statements Regarding Original Work and Rights)
+1. This Library does NOT replace or substitute the original program "deluxe文字選択DWPI明朝4.1版" provided by DWPI.
+2. All rights regarding "deluxe文字選択DWPI明朝4.1版" and "DWPI明朝" belong to DWPI.
+3. This Library is not an official product of DWPI, and DWPI provides no operation guarantees or user support for this Library.
+
+Article 4 (Disclaimer and Limitation of Liability)
+1. This Library is provided "AS IS", without warranty of any kind, express or implied, including but not limited to the warranties of title, non-infringement, merchantability, or fitness for a particular purpose.
+2. In no event shall the developers or copyright holders of this Library, or DWPI, be liable for any claim, damages, or other liability (including direct, indirect, incidental, special, exemplary, or consequential damages, loss of profits, loss of data, or system failures) arising from, out of, or in connection with the installation, use, copying, modification, redistribution, or other dealings in this Library, regardless of the cause of action.
+
+Article 5 (Governing Law)
+This Library and this License shall be governed by and construed in accordance with the laws of Japan.
+--------------------------------------------------------------------------------
+
+[Original Work Information]
+- Original Title: deluxe文字選択DWPI明朝4.1版
+- Rights Holder: DWPI, 一般社団法人デジタル広域推進機構
+- Distribution URL: https://www.digitalwidearea.org/dwpi_mincho
+
+
+================================================================================
+[Attachment] Original License Text (Japanese)
+================================================================================
+
+deluxe文字選択DWPI明朝4.1版ライセンス　2025/11/19
+
+deluxe文字選択DWPI明朝4.1版は一般社団法人デジタル広域推進機構（以下DWPI）が作成したS-ACESSベースの行政事務標準文字を横断的に検索可能なフリーアプリケーションです。deluxe文字選択DWPI明朝4.1版を利用するには、以下の『使用許諾』の全ての条項を承諾いただくことが必要です。利用者が、本アプリケーションを使用し、複製する行為、その他使用許諾に定める権利の利用を行った場合、利用者は使用許諾を承諾したものとみなされます。
+第1条　用語の定義
+
+本契約において、次の各号に掲げる用語は、当該各号に定めるところによります。
+
+1.「アプリケーションプログラム」とは、文字を検索しまたは表示するために用いられるコンピュータ・プログラムをいいます。
+2.「許諾プログラム」とは、許諾者が本契約の下で許諾するアプリケーションプログラムをいいます。
+3.「派生プログラム」とは、許諾プログラムの一部または全部を、改変し、加除修正等し、入れ替え、その他翻案したアプリケーションプログラムをいい、許諾プログラムの一部もしくは全部から情報を取り出し、取り出された情報をそのまま、または改変をなして新たなアプリケーションプログラムとして製作されたものを含みます。
+4.「デジタル・コンテンツ」とは、デジタル・データ形式によってエンド・ユーザに提供される制作物のことをいい、動画・静止画等の映像コンテンツおよびテレビ番組等の放送コンテンツ、ならびに文字テキスト、画像、図形等を含んで構成された制作物を含みます。
+5.「コンピュータ｣とは、本契約においては、サーバを含みます。
+6.「複製その他の利用」とは、複製、譲渡、頒布、貸与、公衆送信、上映、展示、翻案その他の利用をいいます。
+7.「受領者」とは、許諾プログラムを本契約の下で受領した人をいい、受領者から許諾プログラムを受領した人を含みます。
+
+第２条 使用許諾の付与
+
+許諾者は受領者に対し、本契約の条項に従い、すべての国で、許諾プログラムを使用することを許諾します。ただし、許諾プログラムに存在する一切の権利はすべて許諾者が保有しています。本契約は、本契約で明示的に定められている場合を除き、いかなる意味においても、許諾者が保有する許諾プログラムに関する一切の権利および、いかなる商標、商号、もしくはサービス・マークに関する権利をも受領者に移転するものではありません。
+
+1.受領者は本契約に定める条件に従い、許諾プログラムを任意の数のコンピュータにインストールし、当該コンピュータで使用することができます。
+2.受領者はコンピュータにインストールされた許諾プログラムをそのまま、または改変を行ったうえで、印刷物およびデジタル・コンテンツにおいて、文字テキスト表現等として使用することができます。
+3.受領者は前項の定めに従い作成した印刷物およびデジタル・コンテンツにつき、その商用・非商用の別、および放送、通信、各種記録メディアなどの媒体の形式を問わず、複製その他の利用をすることができます。
+4.受領者が当該デジタル・ドキュメント・ファイルを複製その他の利用をする場合には、受領者はかかる行為に関しては本契約の下ではいかなる義務をも負いません。
+5.受領者は、3条の定めに従い、商用・非商用を問わず、許諾プログラムをそのままの状態で改変することなく複製して第三者への譲渡し、公衆送信し、その他の方法で再配布することができます(以下、「再配布」といいます。)。
+6.受領者は、上記の許諾プログラムについて定められた条件と同様の条件に従って、派生プログラムを作成し、使用し、複製し、再配布することができます。
+
+第３条　制限
+
+前条により付与された使用許諾は、以下の制限に服します。
+
+1.派生プログラムが前条5項及び6項に基づき再配布される場合には、以下の全ての条件を満たさなければなりません。
+　(1)派生プログラムを再配布する際には、下記もまた、当該派生プログラムと一緒に再配布され、オンラインで提供され、または、郵送費・媒体及び取扱手数料の合計を超えない実費と引き換えに媒体を郵送する方法により提供されなければなりません。
+　　(a)派生プログラムの写し; および
+　　(b)派生プログラムを作成する過程でフォント開発プログラムによって作成された追加のファイルであって派生プログラムをさらに加工するにあたって利用できるファイルが存在すれば、当該ファイル
+　(2)派生プログラムの受領者が、派生プログラムを、このライセンスの下で最初にリリースされた許諾プログラム（以下、「オリジナル・プログラム」といいます。）に置き換えることができる方法を再配布するものとします。かかる方法は、オリジナル・ファイルからの差分ファイルの提供、または、派生プログラムをオリジナル・プログラムに置き換える方法を示す指示の提供などが考えられます。
+　(3)派生プログラムを、本契約書に定められた条件の下でライセンスしなければなりません。
+　(4)派生プログラムのプログラム名またはファイル名として、許諾プログラムが用いているのと同一の名称、またはこれを含む名称を使用してはなりません。
+　(5)本項の要件を満たすためにオンラインで提供し、または媒体を郵送する方法で提供されるものは、その提供を希望するいかなる者によっても提供が可能です。
+2.受領者が前条5項に基づき許諾プログラムを再配布する場合には、以下の全ての条件を満たさなければなりません。
+　(1)許諾プログラムの名称を変更してはなりません。
+　(2)許諾プログラムに加工その他の改変を加えてはなりません。
+　(3)本契約の写しを許諾プログラムに添付しなければなりません。
+3.許諾プログラムは、現状有姿で提供されており、許諾プログラムまたは派生プログラムについて、許諾者は一切の明示または黙示の保証（権利の所在、非侵害、商品性、特定目的への適合性を含むがこれに限られません）を行いません。いかなる場合にも、その原因を問わず、契約上の責任か厳格責任か過失その他の不法行為責任かにかかわらず、また事前に通知されたか否かにかかわらず、許諾者は、許諾プログラムまたは派生プログラムのインストール、使用、複製その他の利用または本契約上の権利の行使によって生じた一切の損害（直接・間接・付随的・特別・拡大・懲罰的または結果的損害）（商品またはサービスの代替品の調達、システム障害から生じた損害、現存するデータまたはプログラムの紛失または破損、逸失利益を含むがこれに限られません）について責任を負いません。
+4.許諾プログラムまたは派生プログラムのインストール、使用、複製その他の利用に関して、許諾者は技術的な質問や問い合わせ等に対する対応その他、いかなるユーザ・サポートをも行う義務を負いません。
+
+第４条　契約の終了
+
+1.本契約の有効期間は、受領者が許諾プログラムを受領した時に開始し、受領者が許諾プログラムを何らかの方法で保持する限り続くものとします。
+2.前項の定めにかかわらず、受領者が本契約に定める各条項に違反したときは、本契約は、何らの催告を要することなく、自動的に終了し、当該受領者はそれ以後、許諾プログラムおよび派生プログラムを一切使用しまたは複製その他の利用をすることができないものとします。ただし、かかる契約の終了は、当該違反した受領者から許諾プログラムまたは派生プログラムの配布を受けた受領者の権利に影響を及ぼすものではありません。
+
+第５条　準拠法
+
+1.DWPIは、本契約の変更バージョンまたは新しいバージョンを公表することができます。その場合には、受領者は、許諾プログラムまたは派生プログラムの使用、複製その他の利用または再配布にあたり、本契約または変更後の契約のいずれかを選択することができます。その他、上記に記載されていない条項に関しては日本の著作権法および関連法規に従うものとします。
+2.本契約は、日本法に基づき解釈されます。
