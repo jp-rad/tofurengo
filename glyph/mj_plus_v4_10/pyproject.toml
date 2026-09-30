@@ -7,11 +7,12 @@ requires-python = ">=3.8"
 authors = [{ name = "jp-rad" }]
 description = "Unicode UCS/IVS utilities for MJ/GJ glyph processing"
 readme = "README.md"
-license = "MIT"
+license = "LicenseRef-Proprietary"
 license-files = ["LICEN[CS]E*"]
 classifiers = [
   "Programming Language :: Python :: 3",
   "Operating System :: OS Independent",
+  "License :: Other/Proprietary License",
 ]
 
 [project.urls]
