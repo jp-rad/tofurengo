@@ -18,17 +18,17 @@
 * **ファイルパス**:
   * `tools/data/deluxe文字選択DWPIex明朝1.2版.mdb`
   * `tools/data/deluxe文字選択DWPI明朝4.10版V2.0.mdb`
-* **取得元・関連情報**: [DWPI明朝について | 一般社団法人デジタル広域推進機構](https://www.digitalwidearea.org/dwpi_mincho)
+* **取得元・関連情報**: [DWPI明朝について 一般社団法人デジタル広域推進機構](https://www.digitalwidearea.org/dwpi_mincho)
 * **概要**: 行政事務標準文字（DWPI明朝 / DWPIex明朝）の実装用データおよび、文字同定・検索用の属性情報（読み、部首、画数、IVS等）を収録した Microsoft Access データベースファイルです。
 
 ### 2. MJ文字情報一覧表 (Ver. 006.02)
 * **ファイルパス**: `tools/data/mji.00602.xlsx`
-* **取得元**: [MJ文字情報一覧表 | 文字情報技術促進協議会](https://moji.or.jp/mojikiban/mjlist/)
+* **取得元**: [MJ文字情報一覧表 文字情報技術促進協議会](https://moji.or.jp/mojikiban/mjlist/)
 * **概要**: 戸籍・住民基本台帳等で用いられる文字（MJ文字）と Unicode / JISコード、各種属性情報（部首、画数、実装コード等）を網羅した基本データベースです。
 
 ### 3. MJ文字情報変形（変体仮名・異体字等）関連一覧表 (Ver. 002.01)
 * **ファイルパス**: `tools/data/MJIH00201.xlsx`
-* **取得元**: [MJ文字情報一覧表 | 文字情報技術促進協議会](https://moji.or.jp/mojikiban/mjlist/)
+* **取得元**: [MJ文字情報一覧表 文字情報技術促進協議会](https://moji.or.jp/mojikiban/mjlist/)
 * **概要**: MJ文字情報データベースにおける変体仮名や異体字（字形互換性・変形文字）の対応関係をまとめた一覧データです。
 
 ---
@@ -38,5 +38,4 @@
 本プロジェクトで使用している元データの著作権・知的所有権は、それぞれの提供元に帰属します。
 
 - **DWPI関連データ（Deluxe文字選択等）**: 著作権は DWPI（一般社団法人デジタル広域推進機構等）に帰属します。
-- **MJ文字情報関連データ（mji.00602.xlsx / MJIH00201.xlsx 等）**: 著作権は 独立行政法人情報処理推進機構（IPA）に帰属します。
-
+- **MJ文字情報関連データ（mji.00602.xlsx / MJIH00201.xlsx 等）**: 著作権は CITP（C一般社団法人文字情報技術促進協議会）に帰属します。
